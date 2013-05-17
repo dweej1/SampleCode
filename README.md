@@ -18,4 +18,4 @@ More specifically, generate an alphabetical list of all uncommon words in the bo
 4) AI Birds
 
 
-5) 
+5) functional programming in C: create functions based on partial inputs to existing functions.

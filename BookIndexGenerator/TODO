@@ -1,0 +1,14 @@
+-create C++ version main.
+-include STL
+-import commonwords to hash
+-iterate over book and verify page numbers exist/well-formed
+-process book page by page, build red-black tree and hash
+-test timing
+
+-write multi-threaded version
+-write hadoop version
+
+next project:
+-write visual wget in GTK!  play with existing one and make it better
+
+
