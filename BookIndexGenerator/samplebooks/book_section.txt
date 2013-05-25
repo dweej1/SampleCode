@@ -1,0 +1,1546 @@
+1 
+                             Karen M Gardner
+
+                               Alexander Rush
+
+                               Michael K Crist
+
+                             Robert K Konitzer
+
+                             Bobbin Teegarden
+
+
+
+                     Copyright © 2011 Robert K Konitzer
+           For any questions about this text, please email: drexel@uga.edu
+
+2
+                       Associate editor: Marisa Drexel
+           Production managers: Tessa Greenleaf, Desiree White
+     Editorial assistants: Rebecca Arnall, Jon Durden, Ana Kabakova
+
+3
+
+ The Global Text Project is funded by the Jacobs Foundation, Zurich, Switzerland.
+
+
+4
+
+    About the authors
+    Robert Konitzer has worked in information technology since 1986, with a focus on the pragmatics of software
+development. He has worked extensively on the architecture and design of distributed client/server systems since
+1989. He holds an MBA degree with an emphasis in MIS and Operations Research from the University of Denver
+(Colorado, USA) (Bob_Konitzer@clrmnt.com).
+    Alexander Rush has held a variety of positions in information technology since 1983, with an emphasis in
+knowledge analysis and object-oriented analysis and design. He has been a practitioner of KADS Object for the past
+six years, with experience in cognitive modeling applied to object-oriented analysis and design, knowledge
+engineering and management, and enterprise object modeling (Alex_Rush@clrmnt.com).
+    Michael K Crist has worked in information technology since 1983. He has participated in all phases of object-
+oriented (OO) software development, including project management, testing and performance engineering, object
+modeling, and OO technical and application architecture design. He holds degrees in anthropology and biostatistics
+(Michael_Crist@clrmnt.com).
+    Karen M Gardner, Ph.D., has worked in information technology since 1977 and with objects for over 10 years.
+She specializes in object-oriented analysis/design, distributed intelligent objects, cognitive modeling of business
+processes, knowledge analysis and project management. She has participated in all phases of the life cycle of object-
+oriented projects (Karen_Gardner@clrmnt.com).
+    Bobbin Teegarden has been a business engineering consultant and IT (information technology) professional
+longer than she cares to admit. Her current specialization is in enterprise knowledge modeling of complex systems
+and business application architecture and design using object-oriented and Expert Systems techniques. Her
+professional background experience has spanned systems engineering to management consulting. She is currently
+working on applying complexity and chaos theories to business modeling and application architecture
+(teegardenb@aol.com).
+
+5
+
+Cognitive Patterns: Problem-Solving Frameworks for Object Technology
+                            This book is licensed under a Creative Commons Attribution 3.0 License
+
+
+    Foreword
+    As systems become more complex, the human limitations to comprehending system requirements become more
+evident. Since we cannot develop appropriate solutions if we do not understand the problem, human understanding
+is the key ingredient.
+    Cognitive Patterns addresses this central issue by providing techniques for system specification that are based
+on our human facility of thinking and reasoning. As such, it does not model system requirements in terms of
+programming languages and platforms. Instead, it models the way reality is understood by people. Furthermore,
+this "cognitive" approach permits us to analyze any area of human reality—not just that of data processing. Using
+the techniques described in this book, we are no longer restricted to data processing applications. We can develop
+object-oriented systems that involve the interaction of machines, people and computers.
+    Cognitive Patterns not only shows us how to develop cognitive-based systems, it provides a comprehensive
+series of best-practice models and case studies. The book supplies patterns for problem solving, teaches by
+example, and is based on the firsthand experience of its talented team of authors.
+    This is an important book for every system developer. It defines how the next generation of systems will be
+developed.
+                                                                                          —James J. Odell
+
+    Acknowledgment
+    We wish to express our sincere thanks to the many individuals who enabled us to complete this book, including
+our families, friends and professional colleagues in the object-oriented community. Susan Blew of Wells Fargo and
+Company provided a critical review of early drafts of the manuscript. We wish to thank her especially for her
+consistent support, friendship and confidence in our work.
+    Jim Odell has provided the basic premises of our object-oriented thinking and has graciously given many hours
+of his time in helping us develop the ideas presented in this book.
+    Jim Trott, a KADS evangelist and practitioner, has provided helpful review and commentary, strange humor,
+and the case study examples from Boeing included in the “Other uses of KADS Object” chapter.
+    Bill Cathcart, an early adapter of KADS techniques applied to knowledge-based and object-oriented systems, has
+provided ongoing professional guidance, collaboration and lively political debate.
+    Don McCubbrey of the University of Denver (Colorado, USA) has provided mentoring and guidance in
+navigating the evolving and dynamic waters of technical consulting.
+    There are several clients we would like to acknowledge for their support of our work; we have drawn much of the
+material in this book from them. They are:
+    Wells Fargo and Company, AT&T, Northrop Corporation, The Boeing Company, Naval Surface Weapons Center,
+and US West, Inc.
+    Finally, we wish to acknowledge the two other individuals who provided invaluable assistance in completing this
+book through help in proofreading, editing, graphics and technical advice: Courtney Broadus and Michael DeCurtis.
+
+6
+
+Cognitive Patterns: Problem-Solving Frameworks for Object Technology
+About the authors
+
+
+   Dedications
+   To Suzanne, Rachel and Nina, for their love, patience and understanding during many late nights—AR
+   To Dawne, Hilary and Lauren Crist—MC
+   To June Singer, who really started it all—KG
+   To Jean, Mimi, Mac and Drew (age 1) who "prowled and growled" throughout the entire effort—BK
+   To Porter—BT
+
+
+
+
+7
+                            This book is licensed under a Creative Commons Attribution 3.0 License
+
+
+    Part one: Introduction to cognitive patterns and KADS Object
+    Summary
+    Part one consists of:
+        • “Introduction to cognitive patterns”
+        • “Introduction to KADS Object”
+    These chapters will provide the reader with basic knowledge relating to the concepts and terminology of
+cognitive patterns, the origins and academic background behind theories of cognition, and the value of cognitive
+patterns as an approach to modeling business systems and processes. In addition, KADS Object will be introduced
+as a specific approach to cognitive pattern modeling that enables object-oriented views of cognitive patterns. KADS
+Object will be explained in detail, including specific examples of the deliverables.
+
+    Objectives
+    The objectives of part one are:
+      • to provide the reader with a basic understanding of cognitive patterns and cognitive modeling concepts and
+        terms
+      • to explain the uniqueness of cognitive patterns as an approach and their value in modeling business systems
+        and processes
+      • to introduce KADS Object (a non-proprietary set of cognitive patterns) as a specific framework for enabling
+        object-oriented (OO) analysis and design
+
+
+
+
+8
+Cognitive Patterns: Problem-Solving Frameworks for Object Technology
+
+
+
+
+
+1. Introduction to cognitive
+patterns
+    Introduction
+    The term "cognitive" refers to the human facility of thinking and reasoning (Fetzer, 1992; Goldstein and
+Blackman, 1978; Hashway and Duke, 1992; Langacker, 1987). Our fascination with how we think, reason, and solve
+problems has resulted in over 2000 years' worth of written reflections on these topics. During this century, the
+study of cognition has focused on several themes, including childhood development (e.g. how do we learn to read
+and understand what we read?), ways of coping with the limitations of the human mind ( e.g. development of
+computers that can calculate at speeds far exceeding the human brain), and cognitive models (e.g. conceptual
+models of how we view the world) (ISKO Conference, 1992; Wagman, 1991).
+    It is the last topic above, cognitive models and their application to organizational and system processes, that
+serves as the basis for this book. Examples of simple cognitive models are shown in Figure 1.1. A logger's view of a
+tree is different from an artist's view of the same tree, which is different from a potential Christmas tree purchaser's
+view.
+    The term "cognitive pattern" refers to recurring templates that humans use during problem solving/reasoning
+activities. For instance, a diagnostic pattern guides our efforts when we attempt to discover the cause of a problem.
+"Design” patterns, as used in the OO (object-oriented) community, are generally more detailed and would in many
+cases "instantiate" cognitive patterns. This subject is covered later in the following chapters.
+
+
+
+
+    Figure 1.1: Three perceptions of a tree.
+
+    It is the premise of this book that the notion of cognitive patterns, applied to organizational and system
+processes in business, can facilitate a deeper understanding of these processes and more effective management of
+
+9
+
+Cognitive Patterns: Problem-Solving Frameworks for Object Technology
+1. Introduction to cognitive patterns
+
+the complexity of these processes. It is these benefits that serve as the foundation of the business case for using
+cognitive patterns as a framework for object-oriented projects.
+   This book discusses a specific approach to the use of cognitive patterns, Knowledge-Acquisition and Design
+Structures (KADS) Object, that is used very effectively in conjunction with OO development. Therefore this
+approach should not be interpreted as "yet another OO analysis and design methodology". Rather, KADS Object
+offers a unique "cognitive pattern lens" framework from which to view business and system processes. Its use in
+concert with any OO methodology leads to the creation of robust, understandable and testable OO models and
+systems.
+   KADS Object provides one demonstration of a "cognitive pattern" model—a demonstration that is based on a
+way that humans define and solve problems. Figure 1.2 illustrates the point that applying a KADS Object cognitive
+"lens" with which to view the four areas covered in this book (OO systems, OO technical architecture, OO business
+process modeling and OO knowledge-based systems) is but one point of reference. There are other cognitive lenses
+available, each of which emphasizes a different aspect of the problem or process under examination. For instance,
+one can study a cognitive model from the point of view of the metaphors which are used to describe it. In addition,
+there are other non-cognitive ways of viewing the four areas mentioned above (e.g. data-flow diagrams), all of
+which can provide value. However, these views provide a different perspective from the perspective offered by
+cognitive patterns.
+
+
+
+
+   Figure 1.2: Different lens used to view objects.
+
+   Throughout history, many analytical models and views have been developed that might be labeled cognitive only
+in the sense that humans developed them. However many of these views are not considered cognitive from our
+perspective because humans do not innately reason nor think in these terms. An example of this kind of view is
+probability theory. Probability theory has proven very helpful in overcoming some of the limitations of the way
+people think but is not in itself cognitive. Humans do not think in terms of formal probability. Human cognition has
+its strengths and weaknesses, and to say that something is cognitive does not necessarily indicate superiority.
+However, it is the premise of this book that the advantages of human cognition can be used to facilitate our
+comprehension of the complicated systems (automated and manual) with which we work.
+
+   Organization of this book
+   Our goal in writing this book is to introduce the notion of cognitive patterns, providing evidence for its value to
+object-oriented projects based on our experience. This book should be considered introductory to the subject and
+serve as a reference guide. The primary intended audience for this book is OO practitioners who are interested in
+the modeling and development of OO systems (especially large, complex systems), individuals interested in
+10
+modeling business processes as collaborating objects, and those interested in knowledge management. The book is
+organized into three major sections: introductory chapters on cognitive patterns (Part 1); explanatory chapters
+relating to our specific approach to cognitive modeling OO systems, KADS Object (Part 2); and finally chapters
+relating to best practice applications of KADS Object (Part 3).
+    Part 1 introduces the topic of cognition, mental and connectionist models, domains, frameworks, cognitive
+maps, and design patterns. KADS Object is also presented in some detail as a specific approach using cognitive
+patterns, including the model structures and the process of mapping to objects. The knowledge elicitation
+techniques helpful in building the KADS Object patterns are covered in the chapter titled “Knowledge elicitation
+techniques for cognitive models”.
+    Part 2 examines the specific mappings from the KADS Object model components to OO design elements such as
+object types, collaborations and behaviors. Also, the diverse areas beyond OO analysis and design to which KADS
+Object has been applied are explored.
+    Part 3 examines cognitive patterns for typical OO development life-cycle activities including testing, technical
+architecture and reuse. This section concludes with a case study example, illustrating the interrelationship between
+these activities and the benefits of using a cognitive pattern approach throughout the life cycle.
+
+    Introduction to cognition
+    Mental models vs connectionism
+    To understand and appreciate the power of cognitive models, and to provide a context for the rest of the book, a
+brief visit to the sometimes recondite land of cognitive research is required. Although there are varying and hotly
+contested views of the notion of the mind, the concept of "representation" (i.e. cognitive models) is central to each.
+Individuals construct internal mental images (i.e. cognitive models) of their thoughts and views of the world in
+order to make sense of the continual input with which they are assaulted. Figure 1.3 illustrates a kind of internal
+mental image (a file folder), which an individual might commonly use to categorize a number of facts. Researchers
+speak of the architecture of the mind, an architecture that contains various cognitive models; characteristic ways in
+which individuals conceptually model (i.e. organize, structure, and view) their environments. There is evidence that
+the ability to conceptually model appears to be innate in humans (Anderson, 1983; Fodor,1983; Johnson-Laird,
+1983; Lakoff 1987). However, the interpretation we give to the models appears to be culturally defined (Lakoff,
+1987; Lakoff and Johnson, 1980; Lakoff and Turner, 1989). For instance, according to some researchers (Lakoff,
+1987), a cognitive model known as the "front/back" orientation is found in all cultures. All humans have an innate
+capacity to view things as having fronts and backs. However, in western culture our notion of what constitutes, say,
+the front of a house varies from what another culture may perceive as the front of a house. So the application of the
+"front/back" model varies among cultures, but the underlying meaning remains identical.
+
+11
+
+1. Introduction to cognitive patterns
+
+
+
+
+   Figure 1.3: A mental model for categorizing facts.
+
+   There are two current competing theories of the mind concerning internal cognitive representations: mental
+models and connectionism. Mental models were proposed by Johnson-Laird (1983). He suggested that individuals
+innately construct models of the contents of problems, setting up an internal diagram of a situation that is
+consistent with the given facts of the problem. In other words, a mental representation is created and manipulated
+to predict and/or cause an outcome.
+   "Tokens" is the term used to represent objects in the world that are manipulated internally. These mental
+
+models may be direct analogs to real-world situations or states, as might occur in a simulation model. An opposing
+opinion is that the internal representation is not necessarily isomorphic to the external world, but is a result of an
+internal understanding of the external world. An artist, for instance, may see a landscape and paint the feelings it
+evokes rather than painting a realistic portrait of the scene. The idea of mental models was popularized in Senge's
+book (1990), where the author addresses the set of assumptions (mental models) we bring to any encounter, which
+then affects the outcome (positive and negative). Meetings held with people who hold different mental models can
+be stressful as well as stimulating. Figure 1.4 shows various mental models held by individuals during a
+hypothetical business meeting. One individual views the meeting as a battleground, while others view it as a
+playground or a sporting event. Inappropriate mental models (such as the "everyone is out to get me" mental
+model) can cause duress to the individual maintaining that mental model and to the individuals with whom he
+interacts.
+
+
+
+
+   Figure 1.4: Mental models used during a business meeting.
+12
+    The mental model approach tends to view the mind as a kind of digital computer, with input, output, storage,
+and processing components, and an emphasis on the internal structure (Block, 1990; Fodor, 1983; Fodor and
+Pylyshyn, 1988). The competing theory—connectionism (Churchland, 1989; Hinton, 1993)—claims that neural nets
+(a connection of nodes and links related by associations) provide a more realistic model of how the brain works
+(and hence how the mind works). Figures 1.4 and 1.5 illustrate the two approaches. Figure 1.4 accentuates the
+structure of the mental models resident within the mind of the participants of the business meeting. Figure 1.5
+shows a simplified net which emphasizes the relationships between the nodes of a hypothetical connectionist model
+held by a participant in the same business meeting, also resident within the mind. The role of cognitive models in
+human problem-solving has been more thoroughly explicated in the mental model literature than within the
+connectionist literature. It should also be noted that variations on these two major themes exist in both ways of
+thinking. The specific cognitive patterns addressed in this book possesses characteristics of both, but are presented
+as examples of mental models.
+    Several different categories of cognitive patterns/models have been identified (based on both the mental model
+approach and the connectionist-model approach), which emphasize one or more of the various aspects of human
+problem solving and which are pertinent for this book. Table 1.1 briefly describes the cognitive patterns/models
+which will be discussed in the remainder of this chapter.
+    Table 1.1: Types of cognitive models.
+
+     Domains                                         Goals/principles/reasoning associated with recurring situations; serve as
+                                                 explanatory structure for expectations regarding a situation, as in "sorting
+                                                 activities".
+
+     Frameworks                                      Domains with additional context information, as in "sorting mail"
+                                                 activities.
+
+                                                     Frameworks that are oriented towards wayfinding; finding one's way
+     Cognitive Maps
+                                                 through a problem, as in "sorting mail when address is incomplete".
+     Patterns                                        Detailed, very context specific instantiations of frameworks, as in “sorting
+                                                 by zip codes”.
+
+
+    Domains
+    There is a relatively recent trend within cognitive science to study "domains" (Herschfeld and Gel, 1994).
+Domain is the name given an innate (or perhaps partially acquired) kind of cognitive pattern used by a perceiving
+individual that identifies and interprets a class of phenomena assumed to share certain properties (e.g. sorting
+activities). Implied in this definition is the idea of static and dynamic components. For instance, an individual's
+approach to sorting includes goals, procedures, and a set of core principles that support reasoning about the
+concepts found in the domain associated with sorting. Every individual uses a variety of these domains. Domains
+function as a stable response to a set of recurring and complex problems, as in the need to sort items efficiently and
+effectively. One might envision, then, a set of cognitive patterns called domains that are available to individuals that
+assist them in making sense of the world, especially making sense of recurring situations.
+
+13
+
+1. Introduction to cognitive patterns
+
+
+
+
+   Figure 1.5: Business meeting mental models example.
+
+   When faced with a situation or problem, we immediately begin to filter and classify the input in order to better
+manage the information overload created by the influx of data from our situation or problem. Domains are used to
+partition (i.e. classify) the input by serving as explanatory frames. The structure of domains is not contingent on a
+particular language, nor is it necessarily accessible to consciousness. The structure of domains appears to be an
+innate mechanism that reflects the specific relations that exist between the world and our knowledge of it. The
+content is often culturally dependent. For instance, although the ability to sort appears to be universal, sorting
+criteria differs widely among different cultures. Figure 1.6 shows an outline of a dwelling as an example of a
+domain. Although the outline does not show details, the outline does serve as a kind of explanatory frame of
+expectations regarding our knowledge of dwellings.
+   Culture, and the specific problem to be solved, defines the content. For example, the domain of grammar (rules
+that prescribe the use of language) exists in all cultures, but the content of the grammar varies from language to
+language. Chomsky (1980), however, posited the existence of a universal grammar (an example of a very high-level
+domain) that would apply to all languages. He based this belief on his clearly articulated notion of domain
+cognition. If one continues to generalize, one must inevitably discover a generic domain pattern that would apply to
+all examples of that domain pattern (however, there is a substantial risk that the generalization can become so
+vague as to eventually become content free). The most important aspect of domains (from an OO perspective) is
+that they function as an organized background (i.e. a realm or a context) against which concepts or objects can be
+identified and classified, and behavior predicted.
+   Examples of higher-level domains include the aforementioned grammar, designing a tool, or planning a
+meeting. Examples of lower-level domains include our understanding of notions such as containers, writing
+utensils, and knives (what they are, how they work, what we can do with them).
+   Unfortunately the term domain has a more narrow definition in computer science, where it refers primarily to
+the idea of a body of knowledge in some field or subject area, or the set of objects for a given area of interest ( e.g.
+the domain of a billing system, the domain of operations research, or the domain of telecommunications). By the
+definition given previously, the field of operations research would incorporate a number of domain patterns.
+Domain patterns are not specific to a field and thus would exist in other fields as well. For instance, the domain of
+"sorting" occurs in most, if not all, fields of endeavor.
+14
+    Frameworks
+    The notion of a framework has been defined in so many various ways, particularly within the OO community,
+that it is difficult to present a definition that fits all of the examples of frameworks. From a high level of abstraction,
+framework patterns have the same general attributes as a domain and can probably be viewed as domains with
+additional context information. Figure 1.7 illustrates the outlines of various kinds of dwellings, showing more
+specificity than Figure 1.6. Figure 1.7 can thus be viewed as a kind of framework when compared with the more
+generalized Figure 1.6.
+
+
+
+
+    Figure 1.6: Domain model of a "dwelling".
+
+
+
+
+    Figure 1.7: Frameworks for dwellings.
+
+    Frameworks provide a more formal description than would usually apply to a domain. From a systems point of
+view, frameworks can be considered organizations of situation types that are known to occur commonly during a
+system life cycle, and which constitute an organizing structure for a system (Mayer et al., 1995). Frameworks have
+also been described as "medium scale, multipurpose, reusable class hierarchies that depend only on the abstract
+interfaces of various components and have proven to be valuable tools for simplifying and accelerating further
+design" (de Champeaux et al., 1993). Firesmith and Eykholt (1995) define frameworks as "any large, reusable,
+generic specification, design, code, and test pattern of part of an application, consisting primarily of classes
+(possibly organized into clusters and sub-frameworks)". At a low level of abstraction, frameworks have been
+defined as application-specific class libraries that, by default, structure the problem solution (Henderson-Sellers,
+1992). The most cognitive of the above definitions is Mayer's, which addresses the role of frameworks as providing
+an organizing structure.
+15
+1. Introduction to cognitive patterns
+
+
+
+
+   Figure 1.8: A cognitive map.
+
+   Cognitive maps (Chown et al., 1995) can be considered a specific kind of framework, providing a "mapping"
+context for applicable domains. Cognitive maps are specialized representations that humans use for "wayfinding".
+These maps serve two functions. They represent the environment, and they allow a human to move from place to
+place within mapped environments. While this notion is usually reserved for actual attempts to find one's way in
+the world, they can be used to describe abstract topics, such as finding one's way through a problem. Figure 1.8
+illustrates the notion of a cognitive map for a diagnostic problem. Cognitive maps, as examples of frameworks,
+consist of four components:
+      • landmarks (markers for orientation and determining the current location);
+      • paths (a route to a goal consisting of a sequence of landmarks);
+      • direction (changing one's relative position in response to a sighting of a landmark or, conversely, because
+        no landmark is visible);
+      • overviews (provides "bird's-eye views", enabling large-scale reasoning about one's environment).
+   The term "cognitive map framework" is particularly appropriate for the kind of cognitive pattern to be discussed
+in the remainder of the book. "KADS Object" is a framework in the sense that it provides a problem-
+solving/reasoning context (organizing structure) for various domains. For example, the domain of "sorting" is
+viewed as having a problem-solving/reasoning kind of organizing structure guiding the "sorting" activity. KADS
+Object is a kind of cognitive map in that it:
+      • predicts what landmarks will occur during the problem-solving activity, in terms of the type of objects
+        expected and type of behavior expected at points along the problem-solving way;
+      • illustrates a proven directed path to follow based on the kind of reasoning patterns used (e.g. diagnosis);
+      • allows an overview of the problem in terms of the entire set(s) of concepts/objects required and the overall
+        reasoning pattern that utilizes the concepts/objects.
+
+   Patterns
+   Christopher Alexander et al. are usually given credit for introducing the notion of "design patterns" in their book
+A Pattern Language, which describes the use of patterns in architecture (Alexander [1977]). The software
+community, especially the OO community, borrowed the idea of patterns and applied it (generally) to detailed
+descriptions of common activities required of objects. Patterns, however, exist at all levels of abstraction. In this
+book, we differentiate very high level patterns (domains) from very low level design patterns. For instance, the
+16
+"composite pattern" (Gamma et al., 1995) composes objects into tree structures to represent part-whole hierarchies.
+A pattern is thus a "description of communicating objects and classes that are customized to solve a general design
+problem in a particular context" (Gamma et al, 1995). Firesmith and Eykholt (1995) define patterns as "any
+reusable architecture that experience has shown to solve a common problem in a specific context". (This definition
+is more global in intention, resembling a high-level framework rather than a low-level pattern). One of the most
+cognitive definitions of patterns is Riehle and Zullighoven's (1996) description of patterns as "abstractions from a
+concrete form which keep recurring in specific nonarbitrary contexts". A pattern usually has several essential
+elements: the pattern name, the problem to which it applies, the abstract solution, the context, constraints, and the
+consequences of applying the pattern (the results and tradeoffs). Continuing the dwelling example, Table 1.2
+illustrates an example of a pattern for entering the front door.
+    Table 1.2: Simplified pattern.
+
+                                                      Pattern for opening front door
+     Context: Human, house, door
+
+     Problem: How to open front door
+
+     Constraints: Access to key, alarm status
+
+     Solution: Insert key into lock. Turn key to the left, while holding doorknob...
+
+
+    Table 1.3: Examples of design patterns associated with sorting mail.
+
+     1. Pattern for reading zip codes
+
+     2. Pattern for sorting by:
+
+             post office
+
+             street address
+
+             zip code
+
+     3. Pattern for sizing of:
+
+             envelopes
+
+             postcards
+
+     4. Pattern for determining postage
+
+     5. Pattern for handling unreadable addresses
+
+
+    Patterns are cognitive in the sense that humans often think in terms of patterns (Jackendoff, 1994). We
+recognize patterns and we match patterns on a daily basis. For instance, the design composition pattern represents
+a generic ability people have to place selected items in their environments into a part-whole structure.
+    Design patterns provide detailed, reusable and procedural descriptions of design activities that take place within
+a reasoning or problem-solving framework. Thus, design patterns can be applied to, and organized around,
+17
+1. Introduction to cognitive patterns
+
+frameworks, as shown in the "sorting mail" example in Table 1.3. In order to instantiate the sorting mail
+framework, design patterns, such as "reading zip codes", can be used to address the details of implementing the
+framework. Design patterns can be generic (as in the "composition" pattern), or specific, as in the example in Table
+1.3, with accompanying advantages and disadvantages.
+
+   Cognition summary
+   The notion and utilization of cognitive patterns is, in fact, part of the OO world today, beginning with the idea of
+objects themselves being promulgated as more cognitive than traditional approaches. Humans tend to think of their
+environment as containing objects with certain characteristics that can be manipulated. Cognitive patterns provide
+the context, the background, the organizing principles that allow individuals to structure and manage these
+complex objects.
+   The use of cognitive techniques in information technology is also not new (Andriole, 1995; Loucopoulos, 1992;
+Rasmussan et al., 1994). However, these techniques have been used primarily to address human factors, GUI
+design issues or knowledge-based systems. Increasingly, however, cognitive approaches are being applied to other
+aspects of information system development in an attempt to find innovative ways of dealing with the ongoing
+"software crisis".
+   Domains, frameworks, cognitive maps and design patterns all represent examples cognitive patterns.
+Frameworks are considered to be specific, context-driven examples of cognitive patterns called domains. The term
+"cognitive map", representing a kind of framework, best describes the KADS Object approach presented in the
+remaining chapters. Design Patterns, detailed contextual descriptions of object behavior and communication,
+instantiate frameworks, although in some respects, selected patterns can also be considered low-level frameworks.
+In other words, the distinguishing feature that differentiates one type of pattern from another is based on the level
+of abstraction. The extent to which a domain differs from a design pattern is dependent on the level of detail and
+specificity required.
+
+   The rationale for using cognitive patterns
+   Overview of cognitive approach benefits
+   The foregoing description may be intellectually intriguing, but in order to convince OO analysts and designers to
+learn yet another modeling technique, the authors must provide practical and important reasons for its use in order
+for a cognitive pattern approach to be considered helpful. A compelling case must be presented regarding the
+application of cognitive patterns to OO systems because intuitively we think that introducing yet another modeling
+technique increases our difficulties, rather than diminishing them.
+   Just as there is a search for the unified field theory in the hard sciences that would explain and reconcile other
+theories, there is a search within computer science for the one representation scheme that will mirror all aspects of
+reality.
+   Unfortunately there are many views of reality, and each model will reflect only selected aspects of some reality.
+It is probable that we will always require more than one model to obtain a holistic view of an organization or a
+process or a system, despite the problems associated with impedance mismatch and the maintenance of consistency
+among various views. The choice of views should be motivated by the particular system profile and constraints (e.g.
+database design may need to be data-centric). Eventually we may have access to metamodels, where each view is a
+kind of building block that fits with other views in a straightforward fashion. Each view then shows a particular
+18
+frame of reference. A data view would provide one perspective; a business process view would provide another. As
+mentioned previously, a cognitive pattern view can identify and describe a perspective that reflects the reasoning or
+problem-solving activities of a system or organizational process. A cognitive pattern view can be used to model
+system and/or organizational processes because:
+        • the processes themselves are obviously based on reasoning/problem-solving activities;
+        • the analyst, designer, or the system stakeholder can understand the processes better when they are
+          described in this manner.
+    For instance, a logistics process is primarily based on reasoning/problem-solving, whereas a payroll process is
+primarily concerned with posting and the calculation of relatively simple algorithms. However, an analyst may
+choose to model the payroll process as if it were based on more complex reasoning or problem-solving activities
+because the view helps clarify an issue, because it makes more sense to users when it is presented in such a fashion,
+or because it is the fastest way of identifying the objects required for a new payroll system. (It should be noted
+however, that the initial understanding of how a payroll process works is the result of a reasoning/problem-solving
+process).
+    The primary reasons for using cognitive patterns as a framework for object oriented projects are:
+        • to successfully manage complexity;
+        • to better identify the scope and boundaries of the proposed project and to provide a vocabulary by which
+          the scope and boundaries can be discussed;
+        • to quickly identify the necessary and sufficient object types required by the proposed project;
+        • to emphasize and incorporate the role of knowledge within an organization;
+        • to enhance the consistency and validity of class design, and to enable novices to become quickly proficient
+          at class design.
+    Each of these reasons is discussed below. Although subsequent chapters will discuss the KADS Object
+Framework in detail, a simple version of a KADS Object cognitive pattern called "Suitability Assessment" is
+introduced in Figure 1.9 to assist in understanding the following sections.
+
+
+
+
+    Figure 1.9: Suitability assessment.
+19
+1. Introduction to cognitive patterns
+
+
+
+
+   Figure 1.10: Suitability assessment example.
+
+   Figure 1.10 illustrates a simplified example of this cognitive pattern that assumes the pattern is being applied to
+an insurance process. The rectangles predict the type of data/information required and the ovals predict the kind of
+collaborative operations or behavior that will use the data or information. The arrows reflect the general flow of
+reasoning. There is a tendency to read these patterns as data-flow diagrams. They are not data-flow diagrams,
+however; they represent the underlying reasoning pattern of a particular approach to solving problems. Suitability
+assessment is a cognitive pattern which is used when a problem solver is attempting to make a decision, usually
+binary (e.g. "yes/no", "accept/reject"). A key ingredient of this model is that the decision can be changed based on
+compensating factors. It should be noted that the terms used to describe the rectangles and ovals are changed to
+reflect the type of information found within an actual project (e.g. a suitability assessment model in manufacturing
+will use different terms than the same model found in the health field). The project-specific terms, however, will
+have the same underlying meaning of the terms found in the basic pattern.
+   KADS Object consists of 21 of these cognitive patterns that represent frameworks for organizing and cognitively
+modeling one's environment (system processes, business processes).
+
+   Managing complexity
+   A primary argument for applying cognitive patterns to OO projects is the need for analysts/designers to cope
+with increasing amounts of complexity in the projects in which they are involved. Systems are becoming more
+complex. Complexity is often defined formally as a function of the length of the shortest message conveying certain
+information, or the length of time it would take, at a minimum, for a standard universal computing machine to
+perform a particular task (Gell-Mann, 1995). Informally and intuitively, complexity is something we know we are
+experiencing when we feel overwhelmed and lost in the midst of a seemingly over-abundant amount of information,
+or when we struggle to grasp the interrelationships that exist within a system. The use of cognitive patterns
+presents a view of organizational or system processes that provides intellectual tractability by exploiting the
+reasoning/problem-solving aspects of the processes. For instance, if one of the processes of a project is identified as
+a Suitability Assessment pattern, the cognitive pattern for Suitability Assessment can be used as a template to
+structure and organize this particular process. (These cognitive pattern templates are discussed at length in the
+20
+“Introduction to KADS Objects” chapter). The ability to apply these patterns at varying levels of abstraction is of
+great benefit, depending on the need of the analyst/designer. Cognitive patterns are generally applied at a very high
+macro-level (e.g. the patterns found in the finance process for a large, international firm) or at a somewhat lower
+level (e.g. the patterns associated with internet security activities). Because these patterns are cognitively based, we
+have an intuitive understanding of them. Hence, they contribute to comprehension, as opposed to creating yet more
+layers of confusion.
+
+    Determining scope
+    Beginning with the premise that knowing the scope (an understanding of the desired functionality and
+boundaries) of a system is required to successfully develop a system, we can proceed to the question, "How is the
+scope obtained?" In small simple systems the scope is easy to grasp or can be explored by prototyping and user
+requirements. In medium to large systems, we enter the murky world of complexity where the scope is often vague
+and difficult to discern, and where user requirements are ill structured. Prototyping user requirements and use
+cases can assist in determining scope, but in our experience, prototyping user requirements and use cases cannot
+serve as the sole determinants for scoping projects. It is not always clear what activities are within scope, because
+the original scoping document is not sufficiently clear and detailed. Prototyping can result in an endless process of
+scope creep with little functionality underlying screen design. After users have agreed to a screen design,
+implementing the underlying functionality can result in budget and schedule overruns, resulting in rapid
+application disasters (RAD). In addition, requirements change—a fact of life. A context is necessary in which to
+think, structure, evaluate and communicate about scope and modifications to scope. For instance, how does an
+analyst/designer know what ramifications a proposed change may have to the existing scope? In addition, no
+consistent rigorous notation exists for communicating about scope. Scope and boundary statements are often
+narrative in form, with a laundry list of desirable features associated with the general goal of the project. The
+inability to associate these features with the work processes of individuals usually results in the automation of
+specific functionality rather than the more desirable state of automating a business process.
+    Cognitive patterns can be used to structure and provide the context for use cases, user requirements, to define
+scope and to serve as the vehicle of communication for stakeholders regarding scope modifications. In addition, the
+patterns can be nested (decomposed) to any desired level. For instance, the "compare" operation within the
+suitability assessment pattern has other cognitive patterns embedded within it, resembling the nested boxes shown
+in Figure 1.11.
+
+
+
+
+    Figure 1.11: Embedded models.
+
+    The modeling approach described herein is used to provide a problem-solving, results-oriented, knowledge-
+using pattern based context for scoping projects. It is based on identifying and cognitively modeling, the pertinent
+
+  
+
+1. Introduction to cognitive patterns
+
+business patterns within which the project will take place and then iteratively identifying and cognitively modeling
+the subpatterns that are included in the proposed system. The process of identifying and cognitively modeling the
+larger context, the patterns within which the project will take place, generally takes one to two days for large
+projects. Scoping needs to begin within a larger context than the actual project, so that it is evident which
+functionality/activities are to be included and which are to be excluded. Within a short period of time, the patterns
+that belong to the actual project are identified and cognitively modeled. Once this has been completed, user
+requirements and use cases can be tied to the patterns that represent the project processes. This is an iterative
+process and the patterns serve as the vehicle for discussions on scope changes. For instance, a pattern within scope
+might represent a process that makes a decision as to which statistical routine to use, given certain criteria and
+constraints. User requirements and use cases (e.g. default values to be automatically entered) are tied to the actual
+expected behavior of this pattern. For instance, in the Suitability Assessment model, user requirements and use
+cases would be attached to each oval (e.g. What does the user want to see when a "compare" operation is occurring?
+Who are the actors for this pattern?). When a scope change occurs with this process, it is evident which user
+requirements and use cases are affected. Conversely, a new user requirement can lead to the rethinking of scope.
+   In another example, a project's stakeholders provided a preliminary scoping statement regarding the need for a
+system to design parts for airplanes. Using the pattern approach, the processes that a designer uses to design parts
+were identified at a high level (e.g. "Decide which analysis programs will be used during the design" [Suitability
+Assessment pattern]). Using techniques described in the “Knowledge elicitation techniques for cognitive models”
+chapter, the analyst would identify the patterns underlying each process and quickly modify the patterns for the
+particular project, using an iterative or incremental approach. These patterns are then used by the project
+stakeholders to decide which processes are within scope and to help define the boundaries. As the iterative or
+incremental project continues, these patterns are used as a vehicle for discussion regarding modifications to scope.
+
+   Identifying objects and object behavior
+   Modeling of systems, particularly OO systems, has become a critical success factor. Modeling provides necessary
+information for implementors. It serves several purposes, but generally modeling is a way of displaying and
+structuring the object types that must be present, for example, in a system. The models also indicate object
+behavior, multiplicity, and relationships. With a few notable exceptions, the identification of the pertinent objects
+to be modeled is seen as a straightforward activity. One author suggests, for instance, that all one need do is find the
+"nouns" that exist within the organization and that these nouns then serve as potential objects for the system.
+Another author recommends finding the objects in documentation. With these ad hoc approaches to identifying the
+object types that belong in a system or process, the specter of complexity and non-scalability appears. Perhaps
+finding the nouns for small systems is possible, but in our experience, finding and ensuring that the correct objects
+are available in large systems is a daunting task. In particular, when building large-scale OO enterprise models, the
+identification of core object types and the mapping of objects to business processes can be a formidable task,
+especially when the sources for objects are nouns and the reams of documentation that await the unwary. Use cases
+help identify objects. However, in our experience, use cases need a context. Providing a context, such as a pattern,
+avoids use case issues such as excessive numbers of use cases and use cases at varying levels of abstraction.
+   Our ability to build enterprise-wide OO models in less than six months with fewer than eight full-time
+equivalents (FTEs) is based on our practice of applying cognitive patterns to scope and structure (i.e. provide a
+22
+context for) business processes in such a way that the concepts (i.e. object types) and their behavior can be rapidly
+identified. The resulting models are then quickly and transparently mapped to any object-oriented notation (the
+process of mapping from cognitive models to Unified Modeling Language (UML) is discussed in detail in the
+“Mapping cognitive patterns to objects” chapter). The cognitive models can be used at different levels of abstraction
+to identify:
+        • the global or core object types that are needed to support all business processes;
+        • the object types that are specific to a business process;
+        • the object types that are specific to an application, and so forth.
+    By using the patterns as a knowledge-acquisition tool, the analyst/designer can structure the interviewing
+process to elicit specific object types and behavior associated with a particular pattern. Identifying the required
+object types, and associated behavior, becomes a relatively straightforward activity.
+
+    Incorporating knowledge
+    Knowledge is defined as the expert use of data or information; in other words, an expert knows how to access
+data or information, where it is located, why it is needed and when it is needed. For example, in one situation a
+number of fabricators on a shop floor had varying degrees of success in fabricating an instrument. It was discovered
+during the modeling effort that although everyone used the same cognitive patterns, some individuals were experts
+and some were not. What then made some fabricators expert and others not? After modeling the patterns found in
+the processes they used, it was discovered that experts had more concepts available to them and also structured the
+concepts differently. In addition, a few non-experts used different behavior than did the experts within the same
+pattern. The training manual was also modeled, which disclosed that the cognitive patterns existent in the training
+manual were significantly different than the patterns used by the fabricators. Upon completion of the modeling
+effort, it became possible to develop a "best practice" set of cognitive patterns for the shop floor, which meant that
+the expertise of the expert fabricators was incorporated into the methods used by all the fabricators. The cognitive
+patterns developed for the shop floor captured and represented the key knowledge that was now accessible to
+novices, where once it had only been available to a few talented individuals.
+    Every cognitive pattern has areas where expertise is particularly exhibited. For instance, a major source of
+expertise in the suitability assessment pattern is knowing what compensating factors to use to overturn a
+preliminary decision.
+    Knowledge can be communicated and distributed throughout an organization by the use of cognitive patterns.
+
+    Designing object classes
+    The mapping of framework pattern concepts and their behavior to object types and an object behavior notation
+results in a class design that is cognitively based. Use cases and design patterns are also tied to these patterns
+(discussed in later chapters). Because the mapping is relatively easy, a novice can be taught to do initial class design
+in a very short period of time. The initial mapping only includes domain (in the computer-science sense) object
+types, and through iteration and addition of nondomain-specific classes, the class design will be modified from its
+initial structure. However, all class designs reflect the underlying cognitive patterns on which they were based. It is
+then an easy task to determine why certain design decisions were made by accessing the cognitive pattern (design
+traceability). We have also found that class designers maintain greater consistency of design when cognitive
+patterns serve as the context.
+
+
+  
+
+1. Introduction to cognitive patterns
+
+   References
+   Alexander, Christopher, S. Ishikawa & M. Silverstein (1977). A Pattern Language: Towns, Buildings,
+      Construction. NY: Oxford University Press.
+   Anderson, J.R. (1983). The Architecture of Cognition. Cambridge, MA: Harvard University Press.
+   Andriole, S.J. (1995). Cognitive Systems Engineering for User-Computer Interface Design, Prototyping and
+      Evaluation. NY: Erlbaum.
+   Block, Ned (1990). "The computer model of the mind" in Thinking: An Invitation to Cognitive Science, vol.
+      3, D.N. Osherson and E.E. Smith, ed. Cambridge, MA: MIT Press.
+   Chomsky, N. (1980). Rules and Representation. NY: Columbia University Press.
+   Churchland, P.M. (1989). A Neurocomputational Perspective: The Nature of Mind and the Structure of
+      Science. Cambridge, MA: MIT Press.
+   Cognitive Paradigms in Knowledge Organizations (Aug. 26-28, 1992). Second Intl. ISKO Conference,
+      Madras, India.
+   de Champeaux, D., D. Lea & P. Faure (1993). Object Oriented System Development Reading, MA: Addison-
+      Wesley.
+   Fetzer, J., ed. (1992). Epistemology and Cognition, vol 6. Dordrecht: Kluwer Academic Publishers.
+   Firesmith, D. & E. Eykholt (1995). Dictionary of Object Technology. NY: SIGS Books.
+   Fodor, J. (1983). The Modularity of the Mind. Cambridge, MA: MIT Press.
+   Fodor, J. & Z. Pylyshyn (1988). "Connectionism and cognitive Architecture: a critical analysis." Cognition,
+      28, 3-71.
+   Gamma, E., R. Helm, R. Johnson & J. Vlissides (1995). Design Patterns: Elements of Reusable Object
+      Oriented Software. Reading, MA: Addison-Wesley.
+   Gell-Mann, M. (1995). "What is complexity?" Complexity, 1:(1), 16-20.
+   Goldstein, K. & S. Blackman (1978). Cognitive Style. NY: Wiley & Sons.
+   Hashway, R.M. & L.I. Duke (1992). Cognitive Styles: A Primer to the Literature. NY: Mellon Press.
+   Herschfeld, LA. & SA. Gel, ed. (1994). Mapping the Mind: Domain Specificity in Cognition and Culture.
+      London: Cambridge Press.
+   Hinton, G., ed. (1993). Connectionist Symbol Processing. Cambridge, MA: MIT/Elsevier Press.
+   Jackendoff, R. (1994). Patterns in the Mind: Language and Human Nature. NY: Basic Books.
+   Johnson-Laird, P.N. (1983). Mental Models. Cambridge, MA: Harvard University Press.
+   Lakoff, G. (1987). Women, Fire and Dangerous Things. Chicago: University of Chicago Press.
+   Lakoff, G. & M. Johnson (1980). Metaphors We Live By. Chicago: University of Chicago Press.
+   Lakoff, G. & M. Turner (1989). More Than Cool Reason: The Power of Poetic Metaphor. Chicago: University
+      of Chicago Press.
+   Langacker, R. (1987). Foundations of Cognitive Grammar, vol. 1: Theoretical Prerequisites. Palo Alto:
+      Stanford University Press.
+   Mayer, R., P. Benjamin, B. Caraway & M. Painter (1995). A Framework and a Suite of Methods for Business
+      Process Re-Engineering. College Station, TX: Knowledge Based Systems.
+   Rasmussan, J., A. Pejtersen & L. Goodstein (1994). Cognitive Systems Engineering. NY: Wiley.
+24
+    Riehle, Dirk & H. Zullighoven (1996). "Understanding and using patterns in software development" Theory
+        and Practice of Object Systems, 2(1), 3-13.
+    Senge, Peter (1990). The Fifth Discipline: The Art and Practice of the Learning Organization. NY:
+        Doubleday.
+    Wagman, Morton (1991). Cognitive Science and Concepts of the Mind: Towards a General Theory of
+        Human & Artificial Intelligence. NY: Praeger.
+
+
+
+
+
+
+
+
+
+
+
+2. Introduction to KADS
+Object
+    KADS Object background
+    The cognitive pattern model presented in this book, KADS Object, is based upon a body of public-domain
+research that was conducted in Europe from 1985 to 1994, funded by the ESPRIT Consortium. As such, it is
+nonproprietary. The methods resulting from this research initiative are referred to in the literature as KADS
+(knowledge acquisition and design structure) or CommonKADS. KADS was originally designed to serve as a
+methodology for the development of knowledge-based systems, and in Europe this is still a major focus. It is
+designed, in part, to facilitate the modeling of individual expertise. We have included numerous references to the
+published material on the KADS research initiatives (de Hoog et al., 1992; Wielinga et al., 1992), and will not
+attempt to provide further background on the basis or findings of the original KADS research efforts here. We
+encourage those interested in the research basis for KADS Object to refer to the many articles, papers, web sites and
+books on the subject (Tansley and Hayball, 1993; Hickman, 1991).
+
+    Description of KADS Object
+    KADS Object was created as an extension to KADS, to allow direct support for object-oriented decomposition
+and a greater inclusion of research on human cognition. Our experience with KADS Object has shown that the basic
+characteristics associated with knowledge and problem-solving at the person/individual level are also present at the
+business-process, system-process and enterprise level. KADS Object is a cognitive pattern modeling approach that
+views organizations, processes and systems as problem-solving, results-oriented, knowledge-using entities. As
+discussed previously, it is based on the assumption that human beings use a set of cognitive patterns with which to
+organize and filter their environment. In addition, because software products are created by humans, the
+underlying patterns embedded in software also reflect this problem-solving, results-oriented, knowledge-using
+view.
+    KADS Object has been applied successfully in four general areas:
+        • knowledge-based system modeling;
+        • as a cognitive pattern framework for OOA/D for system development;
+        • as a cognitive pattern framework for 00 enterprise business process modeling (existing and redesign); and
+        • as a cognitive pattern framework for 00 technical architecture modeling.
+    Other uses to which it has been applied (in a more limited fashion) include:
+        • specifications recovery (i.e. identifying the cognitive patterns embedded in non documented code and
+          building a cognitive model representative of the code, which then provides a more generalized set of
+          specifications);
+        • cognitive pattern modeling of existing training manuals, in order to compare training programs with
+          existing best practices; and
+
+
+
+
+2. Introduction to KADS Object
+
+      • cognitive pattern modeling of packaged solutions (e.g. Oracle Forms) to identify the patterns found in
+        Oracle Forms processes (e.g. shipping process), in order to compare them with an organization's similar
+        process.
+   KADS Object is fundamentally different from data modeling, traditional enterprise modeling, process modeling
+and other modeling methods because it emphasizes the role of cognitive patterns. Specific techniques (covered in
+the chapter on “Knowledge elicitation techniques for cognitive models”) must be employed in order to elicit and
+model these cognitive patterns. The term "knowledge analysis" is used to describe the elicitation and modeling
+activities that are required to describe the problem-solving patterns used by individuals, organizations, systems,
+code or technical architecture (Gardner, 1995). Knowledge is defined as the application of human judgment to the
+use of data and information. This knowledge is often embedded in business rules.
+   Table 2.1 shows a relatively simple example of the differences between data, information and knowledge.
+   Table 2.1: Data, information and knowledge.
+
+    Data                                   90, 81, 110, 117                         Raw facts
+
+    Information                            Ql - $90,000, Q2 - $81,000, Q3 -         Facts with a context
+                                        $110,000, Q4 - $117,000
+
+    Knowledge                              Retail sales figures are                 Application of human judgment
+                                        historically weak in the second         to the use of data information and
+                                        quarter, and stronger in the third      knowledge.
+                                        and fourth quarters.
+
+
+   As noted in the “Introduction to cognitive patterns”, KADS Object functions as an organizing structure and can
+be used effectively to:
+      • help identify the cognitive patterns being used by individuals, organizations, processes and/or systems to
+        solve a problem, reach a conclusion or obtain a result (at any desired level of abstraction);
+      • provide a library of cognitive patterns, representing 21 distinct ways that humans structure their problem
+        solving;
+      • identify the pertinent objects that are associated with identified cognitive patterns;
+      • help in the development of the object class design, with the cognitive pattern(s)
+      • serving as the "architectural blueprints" for the design; and
+      • provide a structure that enables elicitation of knowledge and definition of requirements.
+   There are two distinct groups of model deliverables in KADS Object: the KADS model and the Object model. The
+KADS model consists of four components: the concept descriptions, the pattern descriptions, the specific cognitive
+patterns (sometimes referred to as "problem-solving templates"), and the strategic description. These four
+components are interrelated and interdependent, and are collectively referred to as the "KADS Model". The Object
+model portion consists of an object model, mapped from the KADS model, and represented in the object notation of
+choice (map to UML). The object model typically includes at least two major design elements: a static (object
+relationship) model, and dynamic (object behavior) models. Additional object notations can be developed from the
+KADS model, such as state-transition diagrams and use cases. The remainder of this chapter will focus on the KADS
+27
+portion only. A full discussion of the techniques and mappings to the Object portion is presented in the chapter on
+“Mapping cognitive patterns to objects”.
+
+    Overview of KADS Object model components
+    Figure 2.1 illustrates the four components comprising the KADS Object model and their relationships. The
+following discussion provides an introduction to each of the four components, followed by a more detailed
+explanation of each individual component.
+    The "Concept Description Component" identifies and structures all the concepts used in each and every
+cognitive pattern (called a "problem-solving template" in KADS literature), together with descriptions and
+definitions of the concepts. A concept is defined as an idea (e.g. world peace), a tangible thing (e.g. automobile), an
+intangible thing (e.g. unicorn), or an event (e.g. "end of month"). Concepts are the basic elements with which we
+think and reason. The concepts are grouped and structured according to relationships. These relationships are
+based on the role the concepts play in each pattern (problem-solving template). For instance, referencing the
+Suitability Assessment template shown in the “Introduction to cognitive patterns” (Figure 1.9), the "compare"
+operation generally requires concepts found in the "data values" rectangle (known as a "role"), to be structured in
+"is_a" and "attribute" formats. The concept description reflects the content aspect of a cognitive pattern. The
+identical pattern (problem-solving template) will have entirely different concepts in different subject areas. For
+instance, as mentioned previously, the Suitability Assessment pattern (template) used in the insurance industry will
+incorporate concepts that vary from the concepts found in the same pattern used in manufacturing. Eventually
+these concepts will become the candidates for object types, object-type attributes and components (part-of) in the
+object portion of KADS Object.
+
+
+
+
+    Figure 2.1: KADS Object component.
+    The "Problem Solving Template Component "consists of a set of diagrams of the cognitive patterns used by a
+particular organization, process, system or individual. A library of templates exists consisting of 21 known patterns
+(included in Appendix A); but problem-solving templates can also be developed from scratch. The templates
+illustrate the underlying reasoning patterns used to solve a problem, reach a conclusion or obtain a result. A
+"reasoning pattern" is defined as a reusable interior-to-the-mind path that is used to draw conclusions, based on
+either an explicit or implicit understanding of the problem to be solved. Individuals tend to use the same reasoning
+
+
+
+ 
+
+2. Introduction to KADS Object
+
+pattern when similarities are found between the characteristics of an existing problem and one they solved in the
+past. A reasoning pattern is dynamic. The templates can be considered a kind of cognitive map, complete with
+landmarks, paths and goals/objectives, that help guide the problem solver through the reasoning path for a given
+situation. Problem-solving templates utilize specific subject area concepts that are required for successfully
+obtaining a result (e.g. solving a problem, reaching a conclusion). Once identified, these concepts are placed in the
+"concept description," which serves as a repository. The templates also show the operations that utilize the
+concepts, and which are required to meet the objectives of the template. (These operations, all of which have
+specific meanings [see Appendix B] will later serve as the source for object behavior.) These concepts and
+operations, and their interactions, are described in detail in the "pattern descriptions" (one pattern description for
+each template). Problem-solving templates can be nested to any desirable level of abstraction (similar to data-flow
+diagrams). Each "operation/collaboration" within a template is a subpattern, with its own applicable problem-
+solving template. For instance, the "classify" operation in the Suitability Assessment template reflects the
+underlying presence of the "Classification" template.
+   The "Pattern Description Component" provides a textual explanation (with varying levels of detail) for the
+problem-solving template diagrams. There is thus a pattern description for each template model. A pattern
+description would, for instance, explain the precise role of specific concepts and detail the kind of
+operation/collaboration that will affect those concepts.
+   Table 2.2a: KADS Object Component Description.
+
+    Model component                  Objective                          Description
+
+    Concept description              Construction of lexicon of         Definitions and hierarchical structuring
+component                         concepts and their                based on role concepts play in each
+                                  relationships                     pattern/template
+
+    Pattern description              Detailed textual description       Input concepts, output concepts (results),
+Component                         of each of the problem solving    and the operations/collaborations
+                                  templates/patterns                manipulation the concepts for each
+                                                                    pattern/template
+
+
+   Table 2.2b: KADS Object Component Description.
+
+    Model component                  Objective                          Description
+
+    Problem solving                  Identification and modeling        Predicts most important
+template/pattern component        of the reasoning                  operations/collaborations and predicts role of
+                                  template/pattern(s) underlying    concepts for each template/pattern
+                                  each business or system or
+                                  expert's process(s)
+
+    Strategic component              Provide control information        Indicated any cognitive strategies which
+                                  for relationships (e.g.           would be used to guide behavior of a set of
+                                  sequencing) among and             patterns—strategies often modeled as a kind of
+29
+     Model component                            Objective                              Description
+
+                                            between patterns                        meta pattern whose function is to control other
+                                                                                    patterns
+
+
+    The "Strategic Description Component" incorporates meta or control information that affects most, if not all, of
+the patterns. For instance, the strategic component could model and manage the business rules and logic that
+govern the sequencing of all pattern descriptions (and associated problem-solving template patterns). Table 2.2
+includes a brief description and the objectives associated with each KADS Object model component.
+    Since the problem-solving templates and process descriptions can be nested to any desirable depth, KADS
+Object practitioners, and OO modelers in general, are often interested in access to guidelines (based on predefined
+criteria) that can be used to determine the optimal modeling depth. However, it remains a subjective evaluation:
+one should model to the level required to obtain understanding, and to the level required by the organization's
+needs. Modeling for modeling's sake should be avoided.
+    As mentioned previously, the concept description component includes a description of the pertinent concepts
+required for each template pattern, the attributes of the concepts (when appropriate), and the relationship that
+binds groups of concepts into hierarchies. Specific techniques are available to the knowledge analyst for identifying
+and classifying concepts (discussed in the chapter on “Knowledge elicitation techniques for cognitive models”).
+    Also as mentioned previously, the concepts are placed into hierarchies based on a particular relationship in
+which the concepts will participate within a specific problem-solving template. They represent a kind of building
+block that will serve as the source for building static object diagrams.
+    Table 2.3 shows examples of concept hierarchies, indicating the relationship described in each hierarchy. The
+notation used is a form of indentation. There are five major types of relationships used in KADS Object, as shown in
+the diagram: "part-of", "is-a", "caused-by" (i.e. cause/effect), "attribute", and "states_of". If desired, the number of
+possible relationships can be expanded, depending on the complexity of a process and its operations. Other
+relationships exist that are variations on the major five (e.g. "place-area" as a variant on "part-of"), or that reflect
+other associations (e.g. "followed-by"). Whether a particular concept participates for example, in a "part-of"
+hierarchy, is dependent on whether the operation/collaboration in which it is involved needs to view the concept in
+a "part-of" context.
+    Table 2.3: Examples of concept hierarchies.
+
+     Book (part of)                                                         title
+
+                                                                            table of contents
+
+                                                                            chapters
+
+                                                                            bibliography
+
+     Library furnishings (is a)                                             bookshelf
+
+                                                                            file cabinet
+
+                                                                            chair
+
+
+              
+
+2. Introduction to KADS Object
+
+
+                                                                desk
+
+    Book (attribute)                                            title
+
+                                                                author
+
+                                                                publisher
+
+                                                                date of publication
+
+    Library furnishings (attribute)                             ID
+
+                                                                type
+
+                                                                color
+
+                                                                purpose
+
+    Book (states of)                                            ordered
+
+                                                                in stock
+
+                                                                purchase
+
+    Book (is a)                                                 fiction
+
+                                                                non-fiction
+
+    Damaged books (caused by)                                   bindery
+
+                                                                customer
+
+                                                                librarian
+
+
+   As a general rule, concepts should not be modeled more than four levels (indentations) deep within a hierarchy
+Since these hierarchies are mapped to an object structure, excessively deep hierarchies can result in excessively
+deep and overly complex object structures.
+   During knowledge elicitation and the construction of the concept description, redundant concepts are not only
+allowed, their identification is deemed an important activity. The more frequently a concept is used in diverse
+hierarchies and problem-solving templates, the more probable its core importance. Each time a concept is used in a
+hierarchy, and within a problem-solving template, it represents a different semantic context for that concept. For
+instance, the concept "water" has one implication when it is placed in a hierarchy called "Liquids" and quite another
+when it is placed in a hierarchy called "My favorite things".
+   The deliverable for the concept description component is a lexicon of the concepts: their hierarchical groupings,
+definitions and descriptions of the concepts, and an identification of the templates and roles within the templates in
+which the concepts are found (discussed later in this chapter). The extent to which this description is complete will
+depend on the extent to which the problem-solving template model and its associated pattern description are
+complete. In the typical iterative/incremental development environment, the first iteration will result in an
+incomplete KADS model.
+31
+    The first activity that occurs when beginning to build the Pattern Description Component is an identification of
+the applicable processes (e.g. the sales/marketing processes) and the probable level of abstraction that will be
+needed. The second activity is to identify or construct (this topic is covered later in the book) the patterns which
+underlie each process. All KADS model components undergo multiple iterations and refinements in the course of
+knowledge elicitation/acquisition and modeling, and the pattern description is no exception. Thus, it is important
+to communicate to the project sponsorship that processes and their associated patterns identified early in the
+project are preliminary assessments, and subject to revision as more is discovered about the project. Our experience
+modeling at the enterprise level has shown that we might, for example, initially identify six metaprocesses, and later
+revise that number upward or downward as the modeling iterations progress. Processes can be metaprocesses
+(highest level of abstraction for a given project), or processes (next level of abstraction from meta), or subprocesses
+(next level of abstraction from process), or sub-sub-processes, and so forth. Processes at the highest level have
+several patterns embedded. Eventually (usually at the second or third level), one process equals one pattern.
+Patterns are made up of individual operations; each operation is a potential subpattern or set of subsubpatterns. If
+an operation within a pattern is to be modeled using a problem-solving template and a pattern description, then the
+operation, by default, becomes a nested pattern. If the operation is merely described as part of a pattern, it remains
+an operation. It is possible, if desired, to decompose operations to any level of detail. Detailed operations, in our
+experience, are often equivalent to design patterns (ala Gamma).
+    Figure 2.2 illustrates a simple example of the spectrum of macro to micro processes.
+    The following list is representative of typical candidate metaprocesses from a telecommunications company.
+Each of these metaprocesses will have one or more problem-solving templates associated with it, where the
+problem-solving templates represent the reasoning pattern(s) that underlie each process.
+        • customer operations process
+        • order fulfillment and provisioning process
+        • customer fault and repair process
+        • billing and payment collection process
+        • sales process
+        • product creation process
+        • engineer network process
+        • procurement process
+        • market strategy process
+    The templates reflecting these meta-processes were decomposed down three levels of abstraction for each
+process, which was determined to be the appropriate level of detail required by the client organization. This meant,
+for instance, the template for process number one (customer operations), when decomposed, resulted in four
+subpatterns/subtemplates, and each of these four subpatterns resulted in three sub-sub-patterns. As mentioned
+previously, the candidates for decomposition/nesting are the operations found in each template pattern. The
+desired level of granularity for the problem-solving templates is directly proportional to the requirements of the
+stated goal.
+    The cognitive steps that an organization, expert or system uses to accomplish some result are not always
+available to the conscious mind, and can, in fact, be "compiled". A good example of compiled knowledge is your
+
+
+
+ 
+
+2. Introduction to KADS Object
+
+response when I ask you to describe how you tie your shoelaces. Although you have been tying your shoelaces for
+years, you will undoubtedly experience difficulties articulating the process. Thus obtaining the information needed
+to complete a problem-solving template pattern can require the use of knowledge-acquisition techniques designed
+to elicit compiled knowledge. (These techniques are covered in the chapter on “Knowledge elicitation techniques for
+cognitive models”).
+
+
+
+
+   Figure 2.2: Meta-process, process, and operation.
+
+   Pattern description deliverable
+   Once the metapatterns have been identified/constructed, a description is begun for each pattern. The pattern
+description itself is a primary deliverable and includes the following:
+
+      • the goal/objective(s) of the pattern, the problem(s) it is designed to address;
+      • the input (in terms of concepts);
+      • the output (in terms of concepts, new and existing, their attributes and state changes);
+      • a concise, textual description of all operations (cognitive steps) that are needed to attain the
+        goal/objective(s) of the pattern. Operations can be viewed as collaborative behavior that utilize n-number
+        of concepts;
+      • an identification of any subpatterns that will need modeling; and
+      • any other pertinent information relating to the process (optional).
+   Usually, before the problem-solving templates associated with a process can be identified from the library of
+templates (or constructed), the pattern description must be at least partially completed. The pattern description
+(especially in terms of the operations and desired output) can be used to identify the appropriate template(s).
+However, as soon as there is a candidate problem-solving template, it can be used to help guide the development of
+the pattern description. The template can be used to elicit information about the pattern.
+   In one client engagement, a process was described in part and the template "heuristic diagnosis" was identified
+as the underlying problem-solving template pattern. However, according to the expert who was describing the
+process, his description did not include an operation that was expected by the template. The knowledge analysts
+believed that the operation in question was "compiled", resulting in the expert not recognizing its existence.
+Through the use of a specialized knowledge-elicitation technique, the operation was discovered and acknowledged
+33
+by the expert. It should be noted, however, that the templates are to be used as templates, not rigid structures into
+which processes are shoe-horned. As will be discussed later in this chapter, the templates must be expanded and
+modified to reflect the processes of interest.
+    The description of the operations in the pattern description can be relatively informal. Because of our
+requirement for flexibility in representation, a single representation language is viewed as too limiting. Therefore
+KADS Object avoids standardizing on a representation to describe the operations. Operations may be sequential,
+parallel, procedural, pattern driven, dependency driven. To a large extent, any description that accurately reflects
+cognitive steps, that makes sense to colleagues and users, and conveys knowledge of the pattern being modeled, is
+acceptable. The common goal of any process modeling approach ultimately is to comprehend the workings of the
+process under consideration.
+    The lack of a standard representation language for the pattern descriptions has been a criticism leveled against
+KADS in general. We hold what appears to be a minority viewpoint: that flexibility of notation for cognitive
+modeling is necessary, due to the variability of human cognition. Understanding that a price is paid for this
+flexibility, in our experience the benefits outweigh the disadvantages. On the other hand, there is no practical
+reason why a formal representation language could not be adopted (e.g. set-theoretic, fuzzy sets...), and certainly
+the KADS community in Europe has begun to address this issue (e.g. the CommonKADS workbench).
+    The mapping to an object notation occurs primarily based on the problem-solving templates (PST). The pattern
+descriptions eventually are saved as design artifacts, serving as the explanatory source of information and detailed
+knowledge represented in the PST. The PST model provides a more formalized language (the language of roles,
+operations and reasoning patterns) and can thus be verified and validated to a greater extent.
+    The deliverable for this component is a set of pattern descriptions, one for each process (meta and nested),
+completed to a level of detail that meets the need of the project or the time-boxed iterative/incremental effort.
+    The "Problem-Solving Template" (PST) component is the heart of KADS Object and represents one of its most
+definitive features. The PSTs are cognitive models in the tradition of "domains," "frameworks" and "cognitive
+maps" discussed in the “Introduction to cognitive patterns”. They provide an organizing structure and context for
+each business or system process. Perhaps the greatest value in the PSTs with respect to modeling is their ability to
+predict problem-solving behaviors. This is enabled by the results of the KADS research, which delivered the 21 PSTs
+as a library of different problem-solving patterns.
+    PSTs are based on the premise that most basic human problem-solving strategies can be distilled to a set of
+generic models. For example, the diagnostic problem-solving template can be applied to diagnosing an infectious
+disease, diagnosing a problem afflicting your car transmission, or finding a bug in software, for each follows the
+same general problem-solving diagnostic pattern. The PSTs have been tested extensively in practice, and are
+generally very consistent in their mapping to problem solving across diverse domains.
+    Since the idea of problem-solving templates is generally a new idea for most people, it is important to find
+analogies that can help clarify the meaning. Table 2.4 shows an analogy between linguistics/language and the KADS
+models.
+    It is grammar (PST) that provides the structure to guide the usage of words (concept description) within
+sentences (pattern description), and the use of sentences within a larger context of dialog management. Dialog
+management (strategic description) addresses our expectations about appropriate responses to our words and
+sentences, and governs the proper sequencing of events. For instance, if two individuals engage in conversation and
+
+ 
+
+2. Introduction to KADS Object
+
+one asks the other "How are you?" the strategic model would suggest waiting for an appropriate response such as
+"I'm fine, thanks" before moving on to other topics.
+   It should be noted that the PSTs tend to map more closely to a process when applied to processes at a finer grain
+of detail. The KADS modeling techniques can be applied effectively at any desired level of abstraction; however,
+when modeling metaprocesses, the generic template models tend not to apply. Processes modeled at high levels of
+abstraction are made up of combinations of templates, as shown by the variety of output of a metaprocess. One of
+the outputs may be a "diagnosis", which would indicate that the "diagnostic" template is embedded within the
+metaprocess. Another output may be a "prediction," which implies the "prediction" template. As one "drills down"
+the processes, the library of problem-solving templates generally apply more directly.
+   The PSTs emphasize the "what" rather than the "how" and do not, as a general rule, show iteration in the same
+sense that a traditional process or data-flow diagram would show iteration. Iteration is usually implied in the
+template, and made explicit in the process description.
+   Table 2.4: Analogy with language.
+
+    KADS object                            Analogous to                           Language
+
+    Concept description                    =                                      Dictionary
+
+    Pattern description                    =                                      Sentences
+
+    PST/pattern model                      =                                      Grammar
+
+    Strategic description                  =                                      Dialog management
+
+
+   PST diagrams
+   The PST is a very simple model, and consists of only two symbols—a rectangle (the "role") and an oval (the
+"operation"). Each role can be considered a named set of concepts that will collaborate to perform some action and
+achieve some result (output). The operation (type of collaboration) will act on these concepts to achieve some
+result. Arrows are used to show the general flow of reasoning. There are a limited, defined number of roles that
+concepts can play within a given template and a limited, defined number of operations/collaborations that can
+occur in that same template. The operations/collaborations can be loosely defined as manipulations on sets of
+concepts. Operations reflect the variety of ways humans utilize and think about concepts.
+   Appendix B presents narrative definitions for selected roles and operations. The definitions for the operations
+are very fine grained and not all projects require such subtle differentiations (e.g. the operation "extract" is very
+similar to the operation "select"). See Tansley and Hayball (1993) for another approach to defining operations.
+Unless the modeling effort requires detailed and exact specifications for the operations, many of these operations
+can be used interchangeably. Depending on the needs of the analyst, the level of abstraction theoretically can be
+lowered to where each operation affects only one concept (very detailed and exact). However, since the problem-
+solving templates and pattern descriptions are generally used as a source for the information needed to build
+object models, it generally does not make much sense to model to a fine-grained level. Again it is the
+analyst/designer who makes the decision as to what level of abstraction will be the most helpful for a particular
+project.
+35
+    Figure 2.3 shows a simple, nonexpanded example of a PST, which is the generic model for Systematic Diagnosis.
+For each "role" there will be a set of concepts that belong in that role. One of the tasks of the knowledge analyst is to
+identify which concepts belong in each role, and then place these concepts into hierarchical groupings based on the
+use of the concepts by the "operations". At a metaprocess level, the roles consist of the type of information required
+rather than detailed list of concepts. Until the patterns have been validated and nested, capturing detailed concepts
+is premature. An example of the type of information that is useful at a metaprocess level is the item "customer-
+profile information". This would contrast with the more detailed delineation of a list of customer-profile concepts.
+Other examples of types of information include "infectious-disease hypotheses", "equipment scheduling
+information", and "test suite repository".
+
+
+
+
+    Figure 2.3: Systematic diagnosis.
+
+    Figure 2.4 illustrates an example of the type of information that might apply to the "Systematic Diagnosis"
+template. (Again, actual concepts would be identified after the appropriate types of information had been identified
+and validated.) The area of interest for this example is medical diagnosis. The basic reasoning flow is as follows: A
+complaint ("my foot hurts") is received by the physician (or system). Based on the nature of the complaint, a
+subsystem model (e.g. orthopedics) is selected from the system model (e.g. knowledge of the anatomy and
+physiology of the human body, presenting symptoms, range of hypotheses, appropriate tests, normative values,
+etc). Incorporated into the subsystem model are the hypotheses and tote that are specific to orthopedics. Tests are
+run and data values are obtained, which are then compared to the test norms to arrive at a determination of the
+differences. (Note that the template does not address the actual running of the tests; if desired, that activity could
+be modeled using a different template.) Based on the differences and the hypotheses that are supported by these
+findings, a conclusion (diagnosis) is reached.
+
+
+
+
+  
+
+2. Introduction to KADS Object
+
+   This template represents one high-level model of how diagnosticians reason through to their conclusions. An
+example of expansion/modification to this PST might include identifying additional roles that would take the place
+of the gigantic system model, such as the addition of a role entitled "set of hypotheses" and a role entitled "set of
+tests". An example of a nested drill down might include the identification and modeling of the
+template(s)/pattern(s) that are embedded in the specify/ heuristic match operation.
+
+
+
+
+   Figure 2.4: Systematic diagnosis: ankle injury example.
+
+   Concept behavior can be seen as collaborative, where the emphasis is placed on identifying the total set of
+concepts contributing to a desired outcome. In addition, an assessment of each concept's contribution during a
+collaborative effort can be made (e.g. the contribution of the concept "joint mobility status" in the specify/heuristic
+match operation). Conversely, the specific behavior of a specific concept can be identified. It is fashionable to
+assume that only the latter example is worthwhile and purist OO. As mentioned previously, it is our belief that
+knowing how objects collaborate within a business (or system) process and their associated patterns, is essential to
+understanding the larger context of object behavior.
+   Figure 2.5 shows the same generic PST, "Systematic Diagnosis", applied to troubleshooting an electrical problem
+for a car.
+37
+    Figure 2.5: Systematic diagnosis: car problem example.
+
+    When first exposed to the notion of PSTs, there is often a tendency to read them as traditional process flows,
+flow charts, work-flow diagrams or data flows. However, PSTs do not fall neatly into any of these categories. The
+difference lies in the type of information being modeled within one template, which can include data flow,
+decisions, etc. Cognitive-modeling approaches tend to explore questions such as "What do you do next?"; "What do
+you do when you get confused?"; "Then what happens?"; "How do you make a decision?" rather than "What kind of
+data do you need, use, store?" or "Where do you send the results?" The answers to the last set of questions are
+important, but they are usually discovered as components of the answers to the former questions. (The answer to,
+"Then what happens?" may include a reference to the sending of a confirmation to another department.) Again, the
+emphasis in cognitive modeling is placed on the reasoning and problem solving that occurs in a process, not the
+document flow.
+    Each template from the library of templates exhibits not only a different configuration pattern of roles and
+operations, but the names given the roles and operations also vary. The names often reflect the area within which
+that particular template was first described (e.g. nuclear industry). Therefore, the names of the roles and operations
+must be changed to better reflect the project actually being modeled. Each library template's roles and operations
+have been defined and, if desired, the definitions can be represented using a formal language (e.g. set-theoretic). A
+glossary can be kept, if desired, that indicates the relationship between the names given the roles and operations for
+a project-specific template with the original names in the library templates. For instance, the generic KADS role
+"problem description" may be changed to "insurance application" for an insurance company. The generic KADS
+operation "compare" may be changed to "determine differences in residence address" for a mail list application.
+    PSTs are the flip side of the coin of the pattern descriptions. Pattern descriptions describe in some narrative
+detail what is happening in terms of the operations that are used in the templates. One should be able to look at the
+problem-solving template diagrams and find a more detailed explanation of the diagram in the pattern description.
+
+
+
+
+2. Introduction to KADS Object
+
+For instance, the operation "compare" found in a template can be described in the pattern description using a
+textual description, using set theory notation, using pseudo-code or some other notation. We have found that "use
+cases" (Jacobson, 1993) can be developed quickly and effectively when the templates are utilized to provide context
+and leveling for the use cases. The application of use cases is shown in the case study described in the “Case study: a
+retail banking example”.
+
+   Library of Problem Solving Templates
+   The library of 21 PSTs currently exists in the public domain, and represents the kernel of the KADS Object
+library. The templates are differentiated by the kind of solution provided by each template. Table 2.5 lists the twelve
+most common templates and the type of solution provided by each. Examples of these and other templates are
+included in Appendix A.
+   All templates in the KADS Object library are categorized as analysis-type templates or synthesis-type templates.
+Analysis-type templates are concerned with the manipulation of existing components (a closed-world scenario)
+within a particular template. Synthesis-type templates are concerned with the introduction of new elements (an
+open-world scenario) into a particular template. For instance, the "Systematic Diagnostic" problem-solving
+template is an analysis-type template. All of the possible diagnoses for broken bones are known. The "design"
+problem-solving template is a synthesis-type template. When designing a new chip, no knowledge exists of all of the
+possible solutions. Needless to say, synthesis-type templates tend to carry greater risk and tend to have increased
+complexity of implementation when contrasted with analysis-type templates.
+   The PSTs are regarded as minimalist blueprints, which undergo modification and refinement through multiple
+iterations of the model, incorporating feedback from subject-matter experts (SMEs) or other stakeholders. The
+minimalist blueprint metaphor works as follows. Imagine that you have decided to build a house. You purchase a
+software package, which includes generic blueprints, and which allows you to first select the general type of
+structure that applies (e.g. house, factory, store). You select "house". The program then creates a generic blueprint
+of a predesigned house based on your selection. Upon reviewing the generic blueprint, you determine that your
+unique requirements require modifications to the design ("master bedroom too small", "need a storage room", and
+so forth). The blueprint is then modified to adjust to your family's specific needs. The key is that you did not
+initially select "factory" and then try to modify that generic design to create a house. You chose a preexisting
+"template" that closely matched your requirements, and from that developed an acceptable model with a minimum
+amount of effort. Modifying a PST generally means expanding it. Because the library templates represent the
+minimum "core" reasoning pattern, the PSTs developed for real projects tend to be twice the size (in terms of
+additional roles and operations) of the library templates. In addition, occasionally a different operation may be
+substituted for a library template operation.
+   Table 2.5: Library of PSTs.
+
+    Problem solving template                                   Solution type sought
+
+    Analysis type                                              Concerned with existing components
+
+       Classification                                              Placement into a category (solution)
+
+       Systemic diagnosis                                          Cause (conclusion)
+39
+         Heuristic diagnosis                                                  Cause (conclusion)
+
+         Assessment of suitability                                            Decision
+
+         Monitoring                                                           Difference
+
+         Prediction                                                           Expected values
+
+         Repair                                                               Remedy
+
+     Synthesis type                                                         Concerned with new components
+
+         Planning                                                             Sequence of actions
+
+         Design                                                               New product/service/structure
+
+         Prediction                                                           Expected behavior
+
+         Configurations                                                       Assembly of components
+
+         Scheduling                                                           Constraint satisfaction (time based)
+
+
+    In our experience, the library of 21 PSTs works much the same way with human problem solving, directly
+applying to greater than 80 per cent of the business and system processes we have modeled, assuming that we are
+modeling at a relatively detailed level. It is generally the case that individual templates tend to blur at higher levels
+of abstraction. When the level of abstraction is high (for instance, at the metaprocess level), templates reflecting the
+processes need to be built from scratch, recognizing that several library templates are likely to be "nested" within a
+single high-level abstraction. Rules for constructing problem-solving templates will be shown later in the chapter.
+    In Figure 2.6, a fragment of a medium-level process called "Review Production Data" from a testing application
+is shown as an example indicating the presence of a nested template. A nested PST library template ("Suitability
+Assessment," indicated by the arrow) underlies the operation called "5.2 Review". "Suitability Assessment" is a
+template where the objective is to make a decision (often binary), based on an assessment of a difference. In this
+example, the "Suitability Assessment" template presented below is partial (see Appendix A for complete diagram).
+    In some cases, a library PST may require so much modification that it loses any resemblance to its original,
+generic form. Typically, this indicates that the wrong PST has been selected, or it can indicate the need for a unique
+PST that does not yet exist in the KADS Object library. Construction of new PSTs specific to an organization can
+facilitate greater reusability. For instance, a new PST called "Maintenance" might be created by an organization,
+serving as a kind of generic view of how maintenance is handled for all departments. Table 2.6 shows the steps
+needed to build a PST from scratch. In order to construct a PST, the analyst/designer needs to begin developing a
+"pattern description". The first attempt at developing a pattern description with a SME(s) (subject-matter expert)
+should last no longer than an hour. This limitation keeps the analyst/designer and SME from going too deeply too
+fast.
+
+
+
+
+             
+
+2. Introduction to KADS Object
+
+
+
+
+   Figure 2.6: Nested template example.
+
+   The deliverable of this component consists of the set of problem-solving template (PST) pattern models and
+nested templates pattern for an area of interest, developed at a level sufficiently deep to satisfy the needs of the
+project.
+   The Strategic Description Component provides a layer of overall management of the business logic that governs,
+for example, the sequencing of patterns. Not every project benefits from having a strategic description. Fine-
+grained and detailed processes that do not display many interdependencies, and can run from start to finish with
+readily available resources, may not require development of a strategic description. We typically include it when
+circumstances indicate a clear business value. The contents of the description itself vary from project to project.
+   Table 2.6: Steps for building a PST.
+
+           1. Identify high level meta processes of interest (e.g. the customer care meta process).
+           2. Determine purpose of process and desired output/result/conclusion for the process of interest. Using
+             the Pattern Description format, begin filling out the major sections, starting with the output section.
+             This is one of the most important steps; a good understanding of the output desired will prove of great
+             assistance in identifying the patterns that underlie the process.
+           3. Determine the input requirements needed to obtain the desired output. Under what circumstances does
+             the process begin? Begin with type of information required (e.g. "personnel records"), rather than
+             specific concepts (e.g. "name").
+           4. Ask SMEs questions that refer to the order of, and explanations of, the operations: For instance, "What
+             do you do first?", "Then what happens?", "How do you usually solve that problem?", "Why do you do
+             [some activity]?". Elicit the general case and try to avoid detail. It should be clearly understood by
+             participants and stakeholders whether the Pattern Description is being completed for an existing
+             process, or for a future-as-we-would-like-it-to-be process. Operations can be compiled (i.e. hidden) in
+             the minds of the SMEs. Specific techniques (described in the chapter on “Knowledge elicitation
+41
+             techniques for cognitive models”) may need to be used to elicit the compiled operations. The existence of
+             compiled operations is often discovered when there is no evidence of an operation that should exist,
+             given the desired output.
+          5. Diagram a PST/pattern. based on your initial Pattern Description. Rectangles represent type of
+             information (roles), and ovals represent the operations. Use nouns to refer to the roles, and verbs to
+             refer to the operations. Modify until the SMEs are satisfied that the PST/pattern represents the process
+             at a high level.
+          6. Determine whether any of the library PSTs/patterns are evident. Generally one or two outputs from an
+             operation indicates the level at which the library templates begin to play a role. Identify any candidate
+             library PSTs/patterns and validate with SMEs.
+          7. Modify the constructed PSTs/patterns and pattern descriptions to desired level of detail or until
+             library PSTs/patterns occur. Identify the concepts that constitute the "type of information" previously
+             gathered, and complete the concept description, pattern description, strategic description and finalize
+             the PSTs/patterns.
+          8. Construct use cases for selected PSTs/patterns or operations within PSTs/patterns. (See the chapter “A
+             retail bank example” for information regarding the relationship of use cases to patterns.)
+
+
+    In some instances the strategic description has consisted of a template model that is a variant of the generic
+PST/pattern for "Monitoring". It can be used to evaluate expected versus real behavior of patterns. (Refer to
+Appendix A for a model of the "Monitoring" PST.) While it is true that the "Monitoring" template could be
+appended to each individual process, it may not be the most elegant solution for overall monitoring of all processes.
+By developing a global "Monitoring" PST at the strategic-description level, reusability is leveraged because the
+strategic description (like the concept description) cuts across all patterns and PSTs. In fact, the strategic
+description can utilize any format or approach that makes sense for a given project. For one engagement, the
+strategic description consisted of a diagram showing all the linkages between the patterns. In another project, it
+consisted of all the global business rules (business rules that impacted all processes).
+    In other situations, it has been used to differentiate sustaining processes from core processes, where sustaining
+templates/patterns are placed in the strategic description. A core process is a process that represents the work the
+corporation does in support of its mission. For example, a bank would have a core process regarding customer
+services. A sustaining process is a process that supports the core processes. An example of a sustaining process
+would be human resources. It, in itself, consists of a number of processes that may require modeling in the normal
+way, but through its services, it also impacts core processes such as customer service by ensuring that sufficient
+number of employees are hired and retained. In some instances, this differentiation varies, depending on how an
+organization perceives its processes.
+    Other uses of the strategic description include:
+        • identifying and diagramming the linkages between the patterns where a pattern sends output to another
+          pattern, receives it from another pattern, shares concepts with another pattern and so forth;
+        • identifying specific strategies regarding the circumstances under which the order of the patterns is
+          changed;
+
+
+   
+
+2. Introduction to KADS Object
+
+      • controlling the timing of patterns, especially in a real-time environment; and controlling exceptions/error
+        handling that affect more than one pattern.
+   The strategic description deliverable is optional and the format is highly flexible, depending on the needs of a
+given project.
+
+   Selecting a Problem-Solving Template
+   The primary selection criteria for choosing a PST/Pattern is based on the kind of solution sought, which is
+precisely the type of problem solving reflected in the "Suitability Assessment" PST. When the analyst is trying to
+ascertain which problem-solving template applies for a given process, the "Suitability Assessment" PST
+(consciously or unconsciously) is being used to do so (see Appendix A). When deciding which problem-solving
+template/pattern applies, the analyst must ask himself the following kinds of questions: Does a given process seek
+to make a decision ("Suitability Assessment" PST/Pattern), place something in a category ("Classification"
+PST/Pattern), diagnose a problem ("Diagnosis" PST/Pattern), configure a structure ("Configuration" PST/Pattern),
+or design a product ("Design" PST/Pattern)? If it is not clear which template underlies a process, developing (to a
+limited extent) the process pattern description, will indicate the type of solution sought (i.e. the output). This will
+help identify the underlying pattern. As mentioned previously, if there are several different kinds of
+solutions/results that are outcomes of a process, the chances are that you are working with a meta- or high-level
+process that has several library templates embedded within it.
+   As soon as a candidate PST/Pattern has been selected, the analyst begins working with the SME or user,
+employing the PST/Pattern as a knowledge-acquisition aid. The logic of the template is explored with the SME to
+ascertain the appropriateness of that particular template, and to determine the extent to which it requires
+modifying. Selecting the wrong template is not an earth-shattering event. For example, a novice modeler might
+initially select the generic "Suitability Assessment" PST/Pattern as a starting point. After extensive modification the
+modeler is satisfied that the PST/Pattern is accurate, but it now more closely resembles a "Prediction" PST!
+Obviously, starting with a prediction PST would have been the correct choice, and less work in the long run. As a
+practitioner gains experience using the templates, mistakes happen less often. Occasionally a practitioner may have
+insufficient information to establish the precise choice of PSTs/Patterns and may for a short while consider two or
+three PSTs/Patterns as candidates. With increasing information, one candidate PST is selected. It has been our
+experience, and that of our clients, that experienced modelers identify/develop/use similar or identical templates
+when modeling the same process.
+
+   Linking Problem-Solving Templates
+   PSTs/Patterns define processes at various levels of abstraction (i.e. meta-process, process, subprocess), where
+each process is modeled as a separate entity. However, in nearly all cases, PSTs are linked to each other across
+functional boundaries. For example, customer-service processes and their PSTs/Patterns, are generally linked to
+billing processes and technical-support processes. A customer complaint relating to a technical problem might be
+an input to both customer service and technical support. A customer complaint relating to a billing problem might
+be related to both customer service and technical support. Concepts and operations within a PST/Pattern that are
+related to another PST/Pattern are indicated by dashed lines as in Figure 2.7. Figure 2.7 shows a partial pattern
+(5.0) with relationships with a role in pattern 8 and an operation (7.4) in pattern 7. When relationships are many
+and/or complex, a table can be built to describe the relationships. This avoids "spaghetti lines" on drawings.
+43
+    Conventions of modeling activity
+    A list of the diagrammatic conventions (Tansley & Hayball, 1993) that should be followed when constructing or
+modifying the templates is shown in Table 2.7. We have added a few guidelines to Tansley's original list based on
+our experience. The guidelines are kept brief because the emphasis in KADS Object is on flexibility rather than on
+strict formalized methods.
+
+    Summary of modeling activity
+    The major activities associated with developing the KADS Object models are shown in Table 2.8. Although the
+list is presented in a sequential format, many of the activities can, and should, be done in parallel.
+
+
+
+
+    Figure 2.7: Linkages between PSTs.
+
+    Table 2.7: Diagrammatic conventions.
+
+         • Roles are represented as rectangles with their name inside (usually a noun).
+         • Operations/collaborations are ovals with their name inside (usually a verb).
+         • Possible directions of operations/collaborations are marked by one-way arrows.
+         • An operation/collaboration generally represents a transformation of one or more roles into one or more
+           new roles, in terms of the concepts "residing" in the roles.
+         • No role may be directly connected to another role, and no operation/collaboration can be directly
+           connected to another operation/collaboration.
+         • Ovals with emboldened lines or which are shadowed indicate the presence of nested templates/patterns.
+         • PSTs/patterns do not specify how nor when to perform the operations/collaborations.
+         • Each PST/pattern should fit on a 8.5 x 11 sheet of paper for the sake of readability and ease of
+           understanding. Diagrams too large to fit a single sheet should be abstracted up a level, and sub-patterns
+           developed on separate sheets.
+         • Almost any drawing tool can be used to manufacture the diagrams. We start off with hand drawn
+           diagrams and then use "Topdown" to automate and store the diagrams. The European community has
+

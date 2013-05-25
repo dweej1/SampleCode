@@ -1,12 +1,11 @@
--create C++ version main.
--include STL
--import commonwords to hash
--iterate over book and verify page numbers exist/well-formed
--process book page by page, build red-black tree and hash
+
 -test timing
 
--write multi-threaded version
--write hadoop version
+-make data-structure/multi-thread/hadoop configurable options
+
+-use factory design pattern, make indexbuilder virtual
+-one version for type: hash, rbtree, threads, hadoop
+
 
 next project:
 -write visual wget in GTK!  play with existing one and make it better
