@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdio>
 #include <ctime>
+#include <algorithm>
 
 #include "CommonWordHash.h"
 #include "BookIndex.h"
@@ -12,18 +13,19 @@ using namespace std;
 #define MAX_ARGS 4
 #define COMMONWORD_ARG 1
 #define BOOK_ARG 2
+#define ITYPE_ARG 3
+
 
 //main: returns 0 on SUCCESS
-int main(int argc, char *argv[]) {   
-  
-  std::ifstream commonWordFile;
-  std::ifstream bookFile;
-  
+bool verifyInput(int argc, char *argv[], 
+                 ifstream &commonWordFile, ifstream &bookFile,
+                 BookIndexFactory::BookIndexType &btype)
+{
   if (argc < MIN_ARGS || argc > MAX_ARGS) {
     cerr << "Usage: " << argv[0] <<                                     \
       "[commonwords.file] [book.file] [optional arg]\n" << endl;
-    cerr << "optional arg: [HASH|RBTREE|THREAD|HADOOP]" << endl;
-    return 1;
+    cerr << "optional arg(default hash): [H[ASH]|R[BTREE]|T[HREAD]|M[APREDUCE]]" << endl;
+    return false;
   }
   
   commonWordFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -33,7 +35,7 @@ int main(int argc, char *argv[]) {
   }
   catch (std::ifstream::failure e) {
     std::cerr << "Could not open: " << argv[COMMONWORD_ARG] <<".\nReason: " << e.what();
-    return 2;
+    return false;
   }
 
   bookFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -43,39 +45,93 @@ int main(int argc, char *argv[]) {
   }
   catch (std::ifstream::failure e) {
     std::cerr << "Could not open: " << argv[BOOK_ARG] <<".\nReason: " << e.what();
-    return 3;
+    commonWordFile.close();
+    return false;
   }
   
-  //configure index factory type, virtual index
-  
+  //configure index type
+  btype = BookIndexFactory::IndexTypeHash;  
+  if (argc == MAX_ARGS) {
+    string typeStr(argv[ITYPE_ARG]);
+    std::transform(typeStr.begin(), typeStr.end(), typeStr.begin(), ::tolower);
+    
+    switch (argv[ITYPE_ARG][0]) {
+    case 'R':
+    case 'r':
+      btype = BookIndexFactory::IndexTypeRBTree;
+      break;
+    case 'T':
+    case 't':
+      btype = BookIndexFactory::IndexTypeThread;
+      break;
+    case 'M':
+    case 'm':
+      btype = BookIndexFactory::IndexTypeMapReduce;
+      break;
+    case 'H':
+    case 'h':
+      break;
+    default :
+      bookFile.close();
+      commonWordFile.close();
+      return false;
+    }  
+  }
+  return true;
+}
 
-  std::clock_t start;
-  double duration;
+//main: returns 0 on SUCCESS
+int main(int argc, char *argv[]) {   
+  
+  std::ifstream commonWordFile;
+  std::ifstream bookFile;
+  BookIndexFactory::BookIndexType btype; 
+
+  //verify files can be opened and datastruct type is valid
+  if (!verifyInput(argc, argv, commonWordFile, bookFile, btype))
+    return 1;
 
   //build common word hashtable
   CommonWordHash *commonWords = new CommonWordHash(commonWordFile);
-  
-  start = std::clock();
+  //push book into a stringstream
+  stringstream bookStream;
+  bookStream << bookFile.rdbuf();
 
-  BookIndex *bookIndex = new BookIndex(commonWords, bookFile);
+  //build and print index.  time how long it takes
+  std::clock_t starttime;
+  double load_duration, build_duration, print_duration;
+  BookIndexFactory bif;
+  BookIndex *bookIndex; 
 
-  duration = ( std::clock() - start );// / (double) CLOCKS_PER_SEC;
+  //BookIndexCreate uses new operator
+  bookIndex = bif.BookIndexCreate(btype);
 
-  std::cout<<"build index: "<< duration <<'\n';
+  //Load book data into the index object
+  starttime = std::clock();
+  if (!bookIndex->LoadBookInfo(commonWords, bookStream)) {
+    cerr << "loading book info failed!" << endl;
+  }
+  load_duration =  std::clock() - starttime;
 
-  start = std::clock();
+  //Build the index
+  starttime = std::clock();
+  if (!bookIndex->buildIndex()) {
+    cerr << "building index failed!" << endl;
+  }
+  build_duration = std::clock() - starttime;
 
+  //Print the index
+  starttime = std::clock();
   bookIndex->printIndex();
-  duration = ( std::clock() - start );// / (double) CLOCKS_PER_SEC;
+  print_duration = std::clock() - starttime;
 
-  std::cout<<"print index: "<< duration <<'\n';  
-
-  //Clean up
-  delete(bookIndex);
-  delete(commonWords);
+  cout << endl << "Load  Time: " << load_duration       \
+       << endl << "Build Time: " << build_duration      \
+       << endl << "Print Time: " << print_duration << endl;
   
-  std::cout << "argc: " << argc << "\n";
-  std::cout << "argv[0]: " << argv[0] << "\n";
+  //Clean up
+  delete(commonWords);
+  delete(bookIndex);
   
   return 0;        
 }

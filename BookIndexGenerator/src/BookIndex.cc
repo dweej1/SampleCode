@@ -7,11 +7,14 @@
 #include <cstdlib>
 #include <unordered_map>
 #include <map>
+#include <regex>
 
 #include "BookIndex.h"
 
 using namespace std;
 
+//page number search tool
+//
 static inline bool is_not_alpha(char c)
 {
   return (!isalpha(c));
@@ -23,159 +26,90 @@ static inline bool is_alpha(char c)
 }
 
 
-bool BookIndex::AddToIndex(const std::string &addMe)
+// Factory to determine index builder type
+//
+BookIndex *BookIndexFactory::BookIndexCreate(BookIndexType btype)
 {
-  unordered_map<string,vector<int>>::iterator 
-    got = this->indexHash.find(addMe);
+  BookIndex *newIndex;
+  switch (btype) {
+  case (BookIndexFactory::IndexTypeHash): 
+    newIndex = new BookIndexHash();
+    break;
+  case (BookIndexFactory::IndexTypeRBTree):
+    newIndex = new BookIndexRBTree();
+    break;
+  case (BookIndexFactory::IndexTypeMapReduce):
+    //newIndex = new BookIndexMapReduce();
+    break;
+  case (BookIndexFactory::IndexTypeThread): 
+    //newIndex = new BookIndexThread();
+    break;
+  default: //DVP: default to hashtype
+    newIndex = new BookIndexHash();    
+    break;
+  };
 
-  if (got != this->indexHash.end()) {
-    vector<int> *currPages = &(got->second);
+  return (newIndex);
+}
+  
+//BookIndex
+//loads byPage class variable with book contents
+bool BookIndex::splitIntoPages(stringstream &book)
+{
+  //newline,any number of whitespaces, 1 or more digits, any amt of
+  //whitespace, newline
+  string bookstr(book.str()); //DVP:revisit, wasted extra copy?
+  regex pageNumRegex ("[\n|\r]\\s*\\d+\\s*[\n|\r]");
+  /*regex_iterator<string::iterator> findPageNum (bookstr.begin(), bookstr.end(), pageNumRegex);
+  regex_iterator<string::iterator> rEnd; //defaults to end-of-seq
+  
+  while (findPageNum != rEnd) {
+
+    string tempstr = findPageNum->str();
+    string pgnum = tempstr.substr(0,tempstr.length()-1);
     
-    if (currPages->back() == this->curPage) {
-      //cerr << "multiple on same page!" << addMe << endl;
-      return false;
+    if (find_if(pgnum.begin(), pgnum.end(), is_alpha) == pgnum.end()) { 
+      int pgnumint = atoi(pgnum.c_str());
+      //number by itself
+      std::cout << pgnumint << endl;
+      //DVP:actually load this->byPage
     }
-    else if (currPages->back() > this->curPage) {
-      cerr << "outoforderpagenum:" <<  this->curPage << endl;
-      return false;
-    }
-    else {
-      currPages->push_back(this->curPage);
-      //cout << "+ " << got->first << ": " << this->curPage << endl;  
-      return true;
-    }
-  } 
-  else {
-    vector<int> pnums;
-    pnums.push_back(this->curPage);
-
-    pair<string, vector<int>> addPair (addMe, pnums);
-    
-    this->indexHash.insert(addPair);
-    //cout << "# " << addPair.first << ": " << pnums.front() <<endl;
-    return true;
-  }
-}
-  
-
-//tokenize based on space
-//if only one token (a number), update curpage
-//drop non-alpha strings (123, :, %, etc)
-//lowercase
-//if (!commonword) insert into index
-void BookIndex::ProcessBookLine(string &thisLine)
-{
-  stringstream lineStream(thisLine);
-
-  vector<string> tokens;
-  string temp;
-
-  while(lineStream >> temp) {
-    tokens.push_back(temp);
-    //std::cout << "Token(" << token << ")\n";
-  }
-  if (tokens.size() == 0) return;
-  
-  if (tokens.size() == 1) {
-    try {      
-      string foo = tokens.front();
-      int pagenum = 0;
-
-      if (find_if(foo.begin(), foo.end(), is_alpha) == foo.end()) {
-        pagenum = atoi(foo.c_str());
-        
-        if (this->curPage >= pagenum){
-          cerr << "out-of-order: " <<  pagenum << \
-            ", " << this->curPage << endl;
-        } 
-        else if (this->curPage + 20 < pagenum) {
-          //sanity check for bad pagenum
-              cerr << "too big jump: " <<  pagenum << \
-                ", " << this->curPage << endl;      
-        }
-        else {
-          //set new pagenum
-          this->curPage = pagenum;
-          //cout << "currPage: " << this->curPage << endl;
-          return;
-        }
-      }
-    } 
-    catch (std::exception e) {
-      cerr << "pagenumerr: "  << endl;
-    }
-  }
-  
-  for(vector<string>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
-    string foo = *it;
-    if (find_if(foo.begin(), foo.end(), is_not_alpha) == foo.end()) {
-      if (!(this->cwords->isCommonWord(foo))) {
-        transform(foo.begin(), foo.end(), foo.begin(), ::tolower);
-        AddToIndex(foo);
-      }
-    }
-  }
-  
-}
- 
-
-
-BookIndex::BookIndex(CommonWordHash *cwords, std::ifstream &book)
-{
-  if (!book.is_open()) {
-    std::cerr << "book file closed!\n" << std::endl;
-    return;
-  }
-
-  this->cwords = cwords;
-  this->curPage = 1;
-
-  book.exceptions(std::ifstream::badbit);
-  string oneBookLine;
-
-  while (getline (book, oneBookLine)) {
-    //cout << oneBookLine << endl;
-    ProcessBookLine(oneBookLine);
-  }
-  
-  cout << "book index loaded!" << endl;
-  
-  //printIndex();
-}
-
-void BookIndex::printIndex(void)
-{
-  /*for(unordered_map<string, vector<int>>::iterator iter = this->indexHash.begin(); 
-      iter != this->indexHash.end(); iter++) {
-    cout << iter->first << " ";
-    vector<int>pages = iter->second;
-    for (vector<int>::iterator it = pages.begin(); 
-         it != pages.end(); it++) {
-      cout << *it;
-      if ((it+1) != pages.end())
-        cout << ", ";
-    }
-    cout << endl;
+    ++findPageNum;
     }*/
-
-  //ordered print
-  
-  map<string, vector<int>> ordered(this->indexHash.begin(), this->indexHash.end());
-
-  for(map<string, vector<int>>::iterator iter = ordered.begin(); 
-      iter != ordered.end(); iter++) {
-    cout << iter->first << " ";
-    vector<int> *pages = &(iter->second);
-    if (pages->size() < 20) {
-      for (vector<int>::iterator it = pages->begin(); 
-           it != pages->end(); it++) {
-        cout << *it;
-        if ((it+1) != pages->end())
-          cout << ", ";
-      }
-      cout << endl;
-    }
-  }  
+  return true;
 }
 
+
+//BookIndex 
+//loads & formats data needed to generate index
+bool BookIndex::LoadBookInfo(CommonWordHash* cwords, stringstream &book)
+{
+  this->cwords = cwords;
+
+  return (splitIntoPages(book));
+}
+
+
+//BookIndexHash
+bool BookIndexHash::buildIndex(void)
+{
+  return true;
+}
+
+void BookIndexHash::printIndex(void)
+{
+
+}
+
+
+//BookIndexMap
+bool BookIndexRBTree::buildIndex(void)
+{
+  return true;  
+}
+
+void BookIndexRBTree::printIndex(void)
+{
+
+}
 
