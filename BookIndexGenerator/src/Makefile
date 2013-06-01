@@ -85,6 +85,8 @@ AUTOCONF = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing autoc
 AUTOHEADER = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing autoheader
 AUTOMAKE = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing automake-1.13
 AWK = gawk
+BOOST_CPPFLAGS = -I/usr/include
+BOOST_LDFLAGS = -L/usr/lib
 
 # the compiler: gcc for C program, define as g++ for C++
 CC = g++
@@ -93,9 +95,9 @@ CCDEPMODE = depmode=none
 # compiler flags:
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
-CFLAGS = -std=c++0x 
-CPP = g++ -E
-CPPFLAGS = -std=c++0x
+CFLAGS = -std=c++0x -g -Wall 
+CPP = gcc -E
+CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=none
 CXXFLAGS = -g -O2
@@ -115,7 +117,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = 
+LIBS = -lboost_regex
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -175,8 +177,8 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-AM_CPPFLAGS = -I/cygdrive/c/code/SampleCode/BookIndexGenerator/src
-LFLAGS = 
+AM_CPPFLAGS = -I/usr/local/include/boost
+LFLAGS = -L/usr/local/lib
 SRCS = index_gen.cc BookIndex.cc CommonWordHash.cc
 OBJS = $(SRCS:.cc=.o)
 MAIN = index_gen

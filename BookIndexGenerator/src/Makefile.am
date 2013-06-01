@@ -4,13 +4,13 @@ CC = g++
 # compiler flags:
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
-CFLAGS  = -std=c++0x -g -Wall -v -l.
+CFLAGS  = -std=c++0x -g -Wall 
 
-AM_CPPFLAGS = -I/cygdrive/c/code/SampleCode/BookIndexGenerator/src
+AM_CPPFLAGS = -I/usr/local/include/boost
 
-LFLAGS = 
+LFLAGS = -L/usr/local/lib
 
-LIBS =
+LIBS = -lboost_regex
 
 SRCS = index_gen.cc BookIndex.cc CommonWordHash.cc
 
@@ -24,19 +24,19 @@ all:    $(MAIN)
 	@echo building your code!
 
 $(MAIN): $(OBJS) 
-        $(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
 .cc.o:
-        $(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean-local:
-        $(RM) *.o *~ $(MAIN)
+	$(RM) *.o *~ $(MAIN)
 
 depend: $(SRCS)
-        makedepend $(INCLUDES) $^
+	makedepend $(INCLUDES) $^
 
 # DO NOT DELETE THIS LINE -- make depend needs it

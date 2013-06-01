@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <unordered_map>
 #include <map>
-#include <regex>
+#include <boost/regex.hpp>
 
 #include "BookIndex.h"
 
@@ -51,6 +51,8 @@ BookIndex *BookIndexFactory::BookIndexCreate(BookIndexType btype)
 
   return (newIndex);
 }
+
+
   
 //BookIndex
 //loads byPage class variable with book contents
@@ -59,23 +61,33 @@ bool BookIndex::splitIntoPages(stringstream &book)
   //newline,any number of whitespaces, 1 or more digits, any amt of
   //whitespace, newline
   string bookstr(book.str()); //DVP:revisit, wasted extra copy?
-  regex pageNumRegex ("[\n|\r]\\s*\\d+\\s*[\n|\r]");
-  /*regex_iterator<string::iterator> findPageNum (bookstr.begin(), bookstr.end(), pageNumRegex);
-  regex_iterator<string::iterator> rEnd; //defaults to end-of-seq
+  boost::regex pageNumRegex("[\n|\r]\\s*\\d+\\s*[\n|\r]");
+  boost::regex_iterator<string::iterator> findPageNum (bookstr.begin(), bookstr.end(), pageNumRegex);
+  boost::regex_iterator<string::iterator> rEnd; //defaults to end-of-seq
+  int currMatchPos = 0, currMatchLen = 0, lastMatchPos = 0;
   
-  while (findPageNum != rEnd) {
-
-    string tempstr = findPageNum->str();
-    string pgnum = tempstr.substr(0,tempstr.length()-1);
+  //while (findPageNum != rEnd) 
+  for (; findPageNum != rEnd; ++findPageNum) {
+    boost::match_results<string::const_iterator> &currMatch= *findPageNum;
+    currMatchPos = currMatch.position(0);
+    string matchStr = currMatch.str();
+    currMatchLen = matchStr.length();    
+    string pgnum = matchStr.substr(0,currMatchLen-1);
+    int pgnumint = atoi(pgnum.c_str());    
     
-    if (find_if(pgnum.begin(), pgnum.end(), is_alpha) == pgnum.end()) { 
-      int pgnumint = atoi(pgnum.c_str());
-      //number by itself
-      std::cout << pgnumint << endl;
-      //DVP:actually load this->byPage
+    BookIndex::PagePair newPair;
+    newPair.first = pgnumint;
+    newPair.second = bookstr.substr(lastMatchPos, currMatchPos);
+    this->byPage.push_back(newPair);
+
+    lastMatchPos = currMatchPos + currMatchLen;
     }
-    ++findPageNum;
-    }*/
+
+  for (vector<BookIndex::PagePair>::const_iterator it = this->byPage.begin();
+       it != this->byPage.end(); ++it) {
+    cout << "-------------------PAGE " << it->first << "-------------------" << endl;
+    cout << it->second << endl;
+  }
   return true;
 }
 

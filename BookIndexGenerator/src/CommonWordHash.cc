@@ -19,10 +19,9 @@ CommonWordHash::CommonWordHash (std::ifstream &commonWordStream)
  commonWordStream.exceptions(std::ifstream::badbit);
   string wordBuf;
   while (getline (commonWordStream, wordBuf)) {
-    cout << wordBuf << endl;
     std::pair<std::string,bool> addMe (wordBuf, true);
     this->commonHash.insert(addMe);
-    
+      
   }
   
   cout << "done loading commonword hash!" << endl;

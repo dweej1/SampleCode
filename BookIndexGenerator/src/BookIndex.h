@@ -15,10 +15,10 @@ class BookIndex
 {
 protected:
 
-typedef std::pair<int, std::string> pagePair;
+typedef std::pair<int, std::string> PagePair;
 
   CommonWordHash *cwords;
-  std::vector<BookIndex::pagePair> byPage;
+  std::vector<BookIndex::PagePair> byPage;
 
   bool splitIntoPages(std::stringstream &book);
 

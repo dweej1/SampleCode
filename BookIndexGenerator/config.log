@@ -50,33 +50,33 @@ PATH: /usr/lib/lapack
 ## Core tests. ##
 ## ----------- ##
 
-configure:2087: checking for a BSD-compatible install
-configure:2155: result: /usr/bin/install -c
-configure:2166: checking whether build environment is sane
-configure:2221: result: yes
-configure:2372: checking for a thread-safe mkdir -p
-configure:2411: result: /usr/bin/mkdir -p
-configure:2418: checking for gawk
-configure:2434: found /usr/bin/gawk
-configure:2445: result: gawk
-configure:2456: checking whether make sets $(MAKE)
-configure:2478: result: yes
-configure:2507: checking whether make supports nested variables
-configure:2524: result: yes
-configure:2607: checking whether make sets $(MAKE)
-configure:2629: result: yes
-configure:2697: checking for g++
-configure:2713: found /usr/bin/g++
-configure:2724: result: g++
-configure:2751: checking for C++ compiler version
-configure:2760: g++ --version >&5
+configure:2104: checking for a BSD-compatible install
+configure:2172: result: /usr/bin/install -c
+configure:2183: checking whether build environment is sane
+configure:2238: result: yes
+configure:2389: checking for a thread-safe mkdir -p
+configure:2428: result: /usr/bin/mkdir -p
+configure:2435: checking for gawk
+configure:2451: found /usr/bin/gawk
+configure:2462: result: gawk
+configure:2473: checking whether make sets $(MAKE)
+configure:2495: result: yes
+configure:2524: checking whether make supports nested variables
+configure:2541: result: yes
+configure:2624: checking whether make sets $(MAKE)
+configure:2646: result: yes
+configure:2714: checking for g++
+configure:2730: found /usr/bin/g++
+configure:2741: result: g++
+configure:2768: checking for C++ compiler version
+configure:2777: g++ --version >&5
 g++ (GCC) 4.5.3
 Copyright (C) 2010 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-configure:2771: $? = 0
-configure:2760: g++ -v >&5
+configure:2788: $? = 0
+configure:2777: g++ -v >&5
 Using built-in specs.
 COLLECT_GCC=g++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/i686-pc-cygwin/4.5.3/lto-wrapper.exe
@@ -84,58 +84,58 @@ Target: i686-pc-cygwin
 Configured with: /gnu/gcc/releases/respins/4.5.3-3/gcc4-4.5.3-3/src/gcc-4.5.3/configure --srcdir=/gnu/gcc/releases/respins/4.5.3-3/gcc4-4.5.3-3/src/gcc-4.5.3 --prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --libexecdir=/usr/lib --datadir=/usr/share --localstatedir=/var --sysconfdir=/etc --datarootdir=/usr/share --docdir=/usr/share/doc/gcc4 -C --datadir=/usr/share --infodir=/usr/share/info --mandir=/usr/share/man -v --with-gmp=/usr --with-mpfr=/usr --enable-bootstrap --enable-version-specific-runtime-libs --libexecdir=/usr/lib --enable-static --enable-shared --enable-shared-libgcc --disable-__cxa_atexit --with-gnu-ld --with-gnu-as --with-dwarf2 --disable-sjlj-exceptions --enable-languages=ada,c,c++,fortran,java,lto,objc,obj-c++ --enable-graphite --enable-lto --enable-java-awt=gtk --disable-symvers --enable-libjava --program-suffix=-4 --enable-libgomp --enable-libssp --enable-libada --enable-threads=posix --with-arch=i686 --with-tune=generic --enable-libgcj-sublibs CC=gcc-4 CXX=g++-4 CC_FOR_TARGET=gcc-4 CXX_FOR_TARGET=g++-4 GNATMAKE_FOR_TARGET=gnatmake GNATBIND_FOR_TARGET=gnatbind --with-ecj-jar=/usr/share/java/ecj.jar
 Thread model: posix
 gcc version 4.5.3 (GCC) 
-configure:2771: $? = 0
-configure:2760: g++ -V >&5
+configure:2788: $? = 0
+configure:2777: g++ -V >&5
 g++: '-V' option must have argument
-configure:2771: $? = 1
-configure:2760: g++ -qversion >&5
+configure:2788: $? = 1
+configure:2777: g++ -qversion >&5
 g++: unrecognized option '-qversion'
 g++: no input files
-configure:2771: $? = 1
-configure:2791: checking whether the C++ compiler works
-configure:2813: g++    conftest.cpp  >&5
-configure:2817: $? = 0
-configure:2865: result: yes
-configure:2868: checking for C++ compiler default output file name
-configure:2870: result: a.exe
-configure:2876: checking for suffix of executables
-configure:2883: g++ -o conftest.exe    conftest.cpp  >&5
-configure:2887: $? = 0
-configure:2909: result: .exe
-configure:2931: checking whether we are cross compiling
-configure:2939: g++ -o conftest.exe    conftest.cpp  >&5
-configure:2943: $? = 0
-configure:2950: ./conftest.exe
-configure:2954: $? = 0
-configure:2969: result: no
-configure:2974: checking for suffix of object files
-configure:2996: g++ -c   conftest.cpp >&5
-configure:3000: $? = 0
-configure:3021: result: o
-configure:3025: checking whether we are using the GNU C++ compiler
-configure:3044: g++ -c   conftest.cpp >&5
-configure:3044: $? = 0
-configure:3053: result: yes
-configure:3062: checking whether g++ accepts -g
-configure:3082: g++ -c -g  conftest.cpp >&5
-configure:3082: $? = 0
-configure:3123: result: yes
-configure:3157: checking for style of include used by make
-configure:3185: result: GNU
-configure:3211: checking dependency style of g++
-configure:3322: result: none
-configure:3385: checking for gcc
-configure:3401: found /usr/bin/gcc
-configure:3412: result: gcc
-configure:3641: checking for C compiler version
-configure:3650: gcc --version >&5
+configure:2788: $? = 1
+configure:2808: checking whether the C++ compiler works
+configure:2830: g++    conftest.cpp  >&5
+configure:2834: $? = 0
+configure:2882: result: yes
+configure:2885: checking for C++ compiler default output file name
+configure:2887: result: a.exe
+configure:2893: checking for suffix of executables
+configure:2900: g++ -o conftest.exe    conftest.cpp  >&5
+configure:2904: $? = 0
+configure:2926: result: .exe
+configure:2948: checking whether we are cross compiling
+configure:2956: g++ -o conftest.exe    conftest.cpp  >&5
+configure:2960: $? = 0
+configure:2967: ./conftest.exe
+configure:2971: $? = 0
+configure:2986: result: no
+configure:2991: checking for suffix of object files
+configure:3013: g++ -c   conftest.cpp >&5
+configure:3017: $? = 0
+configure:3038: result: o
+configure:3042: checking whether we are using the GNU C++ compiler
+configure:3061: g++ -c   conftest.cpp >&5
+configure:3061: $? = 0
+configure:3070: result: yes
+configure:3079: checking whether g++ accepts -g
+configure:3099: g++ -c -g  conftest.cpp >&5
+configure:3099: $? = 0
+configure:3140: result: yes
+configure:3174: checking for style of include used by make
+configure:3202: result: GNU
+configure:3228: checking dependency style of g++
+configure:3339: result: none
+configure:3402: checking for gcc
+configure:3418: found /usr/bin/gcc
+configure:3429: result: gcc
+configure:3658: checking for C compiler version
+configure:3667: gcc --version >&5
 gcc (GCC) 4.5.3
 Copyright (C) 2010 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-configure:3661: $? = 0
-configure:3650: gcc -v >&5
+configure:3678: $? = 0
+configure:3667: gcc -v >&5
 Using built-in specs.
 COLLECT_GCC=gcc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/i686-pc-cygwin/4.5.3/lto-wrapper.exe
@@ -143,35 +143,39 @@ Target: i686-pc-cygwin
 Configured with: /gnu/gcc/releases/respins/4.5.3-3/gcc4-4.5.3-3/src/gcc-4.5.3/configure --srcdir=/gnu/gcc/releases/respins/4.5.3-3/gcc4-4.5.3-3/src/gcc-4.5.3 --prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --libexecdir=/usr/lib --datadir=/usr/share --localstatedir=/var --sysconfdir=/etc --datarootdir=/usr/share --docdir=/usr/share/doc/gcc4 -C --datadir=/usr/share --infodir=/usr/share/info --mandir=/usr/share/man -v --with-gmp=/usr --with-mpfr=/usr --enable-bootstrap --enable-version-specific-runtime-libs --libexecdir=/usr/lib --enable-static --enable-shared --enable-shared-libgcc --disable-__cxa_atexit --with-gnu-ld --with-gnu-as --with-dwarf2 --disable-sjlj-exceptions --enable-languages=ada,c,c++,fortran,java,lto,objc,obj-c++ --enable-graphite --enable-lto --enable-java-awt=gtk --disable-symvers --enable-libjava --program-suffix=-4 --enable-libgomp --enable-libssp --enable-libada --enable-threads=posix --with-arch=i686 --with-tune=generic --enable-libgcj-sublibs CC=gcc-4 CXX=g++-4 CC_FOR_TARGET=gcc-4 CXX_FOR_TARGET=g++-4 GNATMAKE_FOR_TARGET=gnatmake GNATBIND_FOR_TARGET=gnatbind --with-ecj-jar=/usr/share/java/ecj.jar
 Thread model: posix
 gcc version 4.5.3 (GCC) 
-configure:3661: $? = 0
-configure:3650: gcc -V >&5
+configure:3678: $? = 0
+configure:3667: gcc -V >&5
 gcc: '-V' option must have argument
-configure:3661: $? = 1
-configure:3650: gcc -qversion >&5
+configure:3678: $? = 1
+configure:3667: gcc -qversion >&5
 gcc: unrecognized option '-qversion'
 gcc: no input files
-configure:3661: $? = 1
-configure:3665: checking whether we are using the GNU C compiler
-configure:3684: gcc -c   conftest.c >&5
-configure:3684: $? = 0
-configure:3693: result: yes
-configure:3702: checking whether gcc accepts -g
-configure:3722: gcc -c -g  conftest.c >&5
-configure:3722: $? = 0
-configure:3763: result: yes
-configure:3780: checking for gcc option to accept ISO C89
-configure:3843: gcc  -c -g -O2  conftest.c >&5
-configure:3843: $? = 0
-configure:3856: result: none needed
-configure:3878: checking dependency style of gcc
-configure:3989: result: none
-configure:4016: checking how to run the C preprocessor
-configure:4047: gcc -E  conftest.c
-configure:4047: $? = 0
-configure:4061: gcc -E  conftest.c
-conftest.c:11:28: fatal error: ac_nonexistent.h: No such file or directory
+configure:3678: $? = 1
+configure:3682: checking whether we are using the GNU C compiler
+configure:3701: gcc -c   conftest.c >&5
+configure:3701: $? = 0
+configure:3710: result: yes
+configure:3719: checking whether gcc accepts -g
+configure:3739: gcc -c -g  conftest.c >&5
+configure:3739: $? = 0
+configure:3780: result: yes
+configure:3797: checking for gcc option to accept ISO C89
+configure:3860: gcc  -c -g -O2  conftest.c >&5
+configure:3860: $? = 0
+configure:3873: result: none needed
+configure:3895: checking dependency style of gcc
+configure:4006: result: none
+configure:4072: checking for boostlib >= 1.20.0
+configure:4141: g++ -c -g -O2  -I/usr/include conftest.cpp >&5
+configure:4141: $? = 0
+configure:4143: result: yes
+configure:4298: checking how to run the C preprocessor
+configure:4329: gcc -E  conftest.c
+configure:4329: $? = 0
+configure:4343: gcc -E  conftest.c
+conftest.c:12:28: fatal error: ac_nonexistent.h: No such file or directory
 compilation terminated.
-configure:4061: $? = 1
+configure:4343: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "index_gen"
@@ -182,15 +186,16 @@ configure: failed program was:
 | #define PACKAGE_URL ""
 | #define PACKAGE "index_gen"
 | #define VERSION "0.1"
+| #define HAVE_BOOST /**/
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4086: result: gcc -E
-configure:4106: gcc -E  conftest.c
-configure:4106: $? = 0
-configure:4120: gcc -E  conftest.c
-conftest.c:11:28: fatal error: ac_nonexistent.h: No such file or directory
+configure:4368: result: gcc -E
+configure:4388: gcc -E  conftest.c
+configure:4388: $? = 0
+configure:4402: gcc -E  conftest.c
+conftest.c:12:28: fatal error: ac_nonexistent.h: No such file or directory
 compilation terminated.
-configure:4120: $? = 1
+configure:4402: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "index_gen"
@@ -201,67 +206,68 @@ configure: failed program was:
 | #define PACKAGE_URL ""
 | #define PACKAGE "index_gen"
 | #define VERSION "0.1"
+| #define HAVE_BOOST /**/
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4149: checking for grep that handles long lines and -e
-configure:4207: result: /usr/bin/grep
-configure:4212: checking for egrep
-configure:4274: result: /usr/bin/grep -E
-configure:4279: checking for ANSI C header files
-configure:4299: gcc -c -g -O2  conftest.c >&5
-configure:4299: $? = 0
-configure:4372: gcc -o conftest.exe -g -O2   conftest.c  >&5
-configure:4372: $? = 0
-configure:4372: ./conftest.exe
-configure:4372: $? = 0
-configure:4383: result: yes
-configure:4396: checking for sys/types.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for sys/stat.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for stdlib.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for string.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for memory.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for strings.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for inttypes.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for stdint.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4396: checking for unistd.h
-configure:4396: gcc -c -g -O2  conftest.c >&5
-configure:4396: $? = 0
-configure:4396: result: yes
-configure:4408: checking for stdbool.h that conforms to C99
-configure:4475: gcc -c -g -O2  conftest.c >&5
-configure:4475: $? = 0
-configure:4482: result: yes
-configure:4484: checking for _Bool
-configure:4484: gcc -c -g -O2  conftest.c >&5
-configure:4484: $? = 0
-configure:4484: gcc -c -g -O2  conftest.c >&5
+configure:4431: checking for grep that handles long lines and -e
+configure:4489: result: /usr/bin/grep
+configure:4494: checking for egrep
+configure:4556: result: /usr/bin/grep -E
+configure:4561: checking for ANSI C header files
+configure:4581: gcc -c -g -O2  conftest.c >&5
+configure:4581: $? = 0
+configure:4654: gcc -o conftest.exe -g -O2   conftest.c  >&5
+configure:4654: $? = 0
+configure:4654: ./conftest.exe
+configure:4654: $? = 0
+configure:4665: result: yes
+configure:4678: checking for sys/types.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for sys/stat.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for stdlib.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for string.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for memory.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for strings.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for inttypes.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for stdint.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4678: checking for unistd.h
+configure:4678: gcc -c -g -O2  conftest.c >&5
+configure:4678: $? = 0
+configure:4678: result: yes
+configure:4690: checking for stdbool.h that conforms to C99
+configure:4757: gcc -c -g -O2  conftest.c >&5
+configure:4757: $? = 0
+configure:4764: result: yes
+configure:4766: checking for _Bool
+configure:4766: gcc -c -g -O2  conftest.c >&5
+configure:4766: $? = 0
+configure:4766: gcc -c -g -O2  conftest.c >&5
 conftest.c: In function 'main':
-conftest.c:57:20: error: expected expression before ')' token
-configure:4484: $? = 1
+conftest.c:58:20: error: expected expression before ')' token
+configure:4766: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "index_gen"
@@ -272,6 +278,7 @@ configure: failed program was:
 | #define PACKAGE_URL ""
 | #define PACKAGE "index_gen"
 | #define VERSION "0.1"
+| #define HAVE_BOOST /**/
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -324,10 +331,10 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:4484: result: yes
-configure:4609: checking that generated files are newer than configure
-configure:4615: result: done
-configure:4642: creating ./config.status
+configure:4766: result: yes
+configure:4891: checking that generated files are newer than configure
+configure:4897: result: done
+configure:4924: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -344,11 +351,11 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on MisterG
 
-config.status:860: creating Makefile
-config.status:860: creating src/Makefile
-config.status:860: creating config.h
-config.status:1041: config.h is unchanged
-config.status:1089: executing depfiles commands
+config.status:863: creating Makefile
+config.status:863: creating src/Makefile
+config.status:863: creating config.h
+config.status:1044: config.h is unchanged
+config.status:1092: executing depfiles commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -427,6 +434,8 @@ AUTOCONF='${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing autoco
 AUTOHEADER='${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing autoheader'
 AUTOMAKE='${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing automake-1.13'
 AWK='gawk'
+BOOST_CPPFLAGS='-I/usr/include'
+BOOST_LDFLAGS='-L/usr/lib'
 CC='gcc'
 CCDEPMODE='depmode=none'
 CFLAGS='-g -O2'
@@ -523,6 +532,7 @@ target_alias=''
 #define PACKAGE_URL ""
 #define PACKAGE "index_gen"
 #define VERSION "0.1"
+#define HAVE_BOOST /**/
 #define STDC_HEADERS 1
 #define HAVE_SYS_TYPES_H 1
 #define HAVE_SYS_STAT_H 1
@@ -548,8 +558,25 @@ generated by GNU Autoconf 2.69.  Invocation command line was
   CONFIG_HEADERS  = 
   CONFIG_LINKS    = 
   CONFIG_COMMANDS = 
+  $ ./config.status Makefile
+
+on MisterG
+
+config.status:863: creating Makefile
+
+## ---------------------- ##
+## Running config.status. ##
+## ---------------------- ##
+
+This file was extended by index_gen config.status 0.1, which was
+generated by GNU Autoconf 2.69.  Invocation command line was
+
+  CONFIG_FILES    = 
+  CONFIG_HEADERS  = 
+  CONFIG_LINKS    = 
+  CONFIG_COMMANDS = 
   $ ./config.status src/Makefile
 
 on MisterG
 
-config.status:860: creating src/Makefile
+config.status:863: creating src/Makefile

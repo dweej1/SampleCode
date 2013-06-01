@@ -167,6 +167,8 @@ AUTOCONF = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing autoc
 AUTOHEADER = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing autoheader
 AUTOMAKE = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing automake-1.13
 AWK = gawk
+BOOST_CPPFLAGS = -I/usr/include
+BOOST_LDFLAGS = -L/usr/lib
 CC = gcc
 CCDEPMODE = depmode=none
 CFLAGS = -g -O2
