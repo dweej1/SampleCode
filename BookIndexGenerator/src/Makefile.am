@@ -10,9 +10,9 @@ AM_CPPFLAGS = -I/usr/local/include/boost
 
 LFLAGS = -L/usr/local/lib
 
-LIBS = -lboost_regex
+LIBS = -lboost_regex -lboost_system -lboost_thread
 
-SRCS = index_gen.cc BookIndex.cc CommonWordHash.cc
+SRCS = index_gen.cc BookIndex.cc CommonWordHash.cc BookIndexHash.cc BookIndexRBTree.cc BookIndexMapReduce.cc BookIndexFactory.cc 
 
 OBJS = $(SRCS:.cc=.o)
 

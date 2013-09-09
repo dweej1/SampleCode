@@ -1,7 +1,6 @@
 #include <iostream> 
 #include <fstream>
 #include <algorithm>
-#include <ctime>
 
 #include "CommonWordHash.h"
 
@@ -17,17 +16,19 @@ CommonWordHash::CommonWordHash (std::ifstream &commonWordStream)
     return;
   }
   
-  clock_t loadStart = std::clock();
-  
   commonWordStream.exceptions(std::ifstream::badbit);
-  string wordBuf;
-  while (getline (commonWordStream, wordBuf)) {
-    transform(wordBuf.begin(), wordBuf.end(), wordBuf.begin(), ::tolower);        
-    std::pair<std::string,bool> addMe (wordBuf, true);
-    this->commonHash.insert(addMe);
+  try {
+    string wordBuf;
+    while (getline (commonWordStream, wordBuf)) {
+      transform(wordBuf.begin(), wordBuf.end(), wordBuf.begin(), ::tolower);        
+      
+      std::pair<std::string,bool> addMe (wordBuf, true);
+      this->commonHash.insert(addMe);
+    }
   }
-  
-  cout << "commonword hash load time: " << (std::clock() - loadStart) << endl;
+  catch (std::ifstream::failure e) {
+    std::cerr << "Error reading commonword file" << endl << "Reason: " << e.what() << endl;
+  }
 }
 
 

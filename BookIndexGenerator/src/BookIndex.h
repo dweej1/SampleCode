@@ -4,13 +4,12 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <map>
-#include <boost/unordered_map.hpp>
 
 #include "CommonWordHash.h"
 
 
-//simple base class (should be uninstantiable).
+//simple uninstantiable base class 
+//handles book text scrubbing and page num identification
 class BookIndex 
 {
  protected:
@@ -19,60 +18,23 @@ class BookIndex
   typedef std::pair<std::string, std::vector<int>> IndexPair;
   
   CommonWordHash *cWords;
-  std::vector<BookIndex::PagePair> byPage;
+  std::vector<BookIndex::PagePair*> byPage;
   
   bool splitIntoPages(std::stringstream &book);
   
  public:
+  //constructor used when book is already Loaded
+  BookIndex(CommonWordHash *cWords, std::vector<BookIndex::PagePair> *thesePages);
   //loads protected vars: cwords, byPage
   bool LoadBookInfo(CommonWordHash* cwords, 
                     std::stringstream &book);
   
+  
   //implemented by derived classes
-  virtual bool buildIndex() {return false;}
-  virtual void printIndex(void) {}
-  
+  virtual bool buildIndex() = 0;
+  virtual void printIndex(void) = 0;
+  virtual bool mergeIndex(BookIndex *mergeMe) {return false;}
 };
-
-
-//factory to control creation of Index Generator
-class BookIndexFactory
-{
- public:
-  
-  enum BookIndexType {IndexTypeHash, IndexTypeRBTree, IndexTypeThread, IndexTypeMapReduce};
-  
-  BookIndex *BookIndexCreate(BookIndexFactory::BookIndexType btype);
-};
-
-
-//hash table implementation
-class BookIndexHash : public BookIndex
-{
- private:
-  boost::unordered_map <std::string, std::vector<int>> indexHash;  
-  bool addToIndex(const std::string &addMe, int pageNum);
-  
- public:
-  bool buildIndex();
-  void printIndex();
-};
-
-//RBTree implementation
-class BookIndexRBTree : public BookIndex
-{
- private:
-  std::map <std::string, std::vector<int>> indexTree;  
-  bool addToIndex(const std::string &addMe, int pageNum);
-  
- public:
-  bool buildIndex();
-  void printIndex();
-};
-
-
-
-
 
 
 //DVP:

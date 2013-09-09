@@ -6,8 +6,7 @@
 
 #include "CommonWordHash.h"
 #include "BookIndex.h"
-
-using namespace std;
+#include "BookIndexFactory.h"
 
 #define MIN_ARGS 3
 #define MAX_ARGS 4
@@ -15,16 +14,21 @@ using namespace std;
 #define BOOK_ARG 2
 #define ITYPE_ARG 3
 
+using namespace std;
 
-//main: returns 0 on SUCCESS
+//usage error message
+void printUsage(void)
+{
+    cerr << "Usage: index_gen [commonwords.file] [book.file] [optional arg]\n" << endl;
+    cerr << "optional arg(default hash): [H[ASH]|R[BTREE]|T[HREAD]|M[APREDUCE]]" << endl;
+}
+
+//verifies existence, not validity
 bool verifyInput(int argc, char *argv[], 
                  ifstream &commonWordFile, ifstream &bookFile,
                  BookIndexFactory::BookIndexType &btype)
 {
   if (argc < MIN_ARGS || argc > MAX_ARGS) {
-    cerr << "Usage: " << argv[0] <<                                     \
-      "[commonwords.file] [book.file] [optional arg]\n" << endl;
-    cerr << "optional arg(default hash): [H[ASH]|R[BTREE]|T[HREAD]|M[APREDUCE]]" << endl;
     return false;
   }
   
@@ -88,23 +92,28 @@ int main(int argc, char *argv[]) {
   BookIndexFactory::BookIndexType btype; 
 
   //verify files can be opened and datastruct type is valid
-  if (!verifyInput(argc, argv, commonWordFile, bookFile, btype))
+  if (!verifyInput(argc, argv, commonWordFile, bookFile, btype)) {
+    printUsage();
     return 1;
-
-  //build common word hashtable
-  CommonWordHash *commonWords = new CommonWordHash(commonWordFile);
+  }
+  
   //push book into a stringstream
   stringstream bookStream;
   bookStream << bookFile.rdbuf();
 
   //build and print index.  time how long it takes
   std::clock_t starttime;
-  double load_duration, build_duration, print_duration;
+  double cword_duration, load_duration, build_duration, print_duration;
   BookIndexFactory bif;
   BookIndex *bookIndex; 
 
   //BookIndexCreate uses new operator
   bookIndex = bif.BookIndexCreate(btype);
+  
+  //build common word hashtable
+  starttime = std::clock();
+  CommonWordHash *commonWords = new CommonWordHash(commonWordFile);
+  cword_duration = std::clock() - starttime;
 
   //Load book data into the index object
   starttime = std::clock();
@@ -125,7 +134,8 @@ int main(int argc, char *argv[]) {
   bookIndex->printIndex();
   print_duration = std::clock() - starttime;
 
-  cout << endl << "Load  Time: " << load_duration       \
+  cout << endl << "CWord Time: " << cword_duration      \
+       << endl << "Load  Time: " << load_duration       \
        << endl << "Build Time: " << build_duration      \
        << endl << "Print Time: " << print_duration << endl;
   

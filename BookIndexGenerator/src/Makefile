@@ -117,7 +117,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lboost_regex
+LIBS = -lboost_regex -lboost_system -lboost_thread
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /cygdrive/c/code/SampleCode/BookIndexGenerator/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -179,7 +179,7 @@ top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = -I/usr/local/include/boost
 LFLAGS = -L/usr/local/lib
-SRCS = index_gen.cc BookIndex.cc CommonWordHash.cc
+SRCS = index_gen.cc BookIndex.cc CommonWordHash.cc BookIndexHash.cc BookIndexRBTree.cc BookIndexMapReduce.cc BookIndexFactory.cc 
 OBJS = $(SRCS:.cc=.o)
 MAIN = index_gen
 all: all-am

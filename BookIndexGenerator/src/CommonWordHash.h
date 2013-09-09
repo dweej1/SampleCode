@@ -20,3 +20,6 @@ class CommonWordHash
   
 #endif
  
+//DVP: write a version with global hash and
+//     worker threads that acquire a lock on each hash entry
+
