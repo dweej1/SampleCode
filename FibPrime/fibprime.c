@@ -4,7 +4,7 @@
 
 
 //if FINDFIBPRIME gets really big, we may hit MAXINT before finding the
-//fib prime.  Switch this code to long long or something like that.
+//fib prime.  Switch this code to double or something like that.
 //We are just dealing with the 7th prime for now.
 #define FINDFIBPRIME 7
 
@@ -13,9 +13,10 @@
 //boring.  I know this is total overkill, but it allows the fib prime
 //checker to work for numbers much larger than 7.
 
-//Quoted from:
+//References:
+//http://en.wikipedia.org/wiki/Primality_test#Fast_deterministic_tests
 //http://stackoverflow.com/questions/627463/how-can-i-test-for-primality
-/*
+/* quoted comment:
 As Mark said, the Miller-Rabin test is actually a very good way to go. 
 An additional reference (with pseudo-code) is the Wikipedia article about it.
 
@@ -122,7 +123,7 @@ int main() {
     currFibNumber = nextFibNumber;
   }
 
-  printf ("The %d th fibonacci primes is: %d \n", FINDFIBPRIME, currFibNumber);
+  printf ("The %dth fibonacci prime is: %d \n", FINDFIBPRIME, currFibNumber);
 
   return 0;
 }
